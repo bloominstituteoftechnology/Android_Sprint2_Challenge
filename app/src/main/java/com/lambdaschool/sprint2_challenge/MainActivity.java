@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        String hey = ShoppingItemConstants.ITEM_NAMES_RAW[1];
 
 
     }
