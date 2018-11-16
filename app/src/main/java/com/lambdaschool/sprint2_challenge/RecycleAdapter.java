@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,10 +17,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView txtTitle;
+        public ImageView imageView;
 
         public MyViewHolder(View view) {
             super(view);
             txtTitle = view.findViewById(R.id.textViewItemName);
+            imageView = view.findViewById(R.id.imageViewItem);
+
         }
     }
     @NonNull
@@ -31,9 +35,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecycleAdapter.MyViewHolder myViewHolder, int i) {
-        ShoppingItem item = items.get(i);
-        String getName = item.getName();
-        myViewHolder.txtTitle.setText(getName);
+
+        ShoppingItem currentItem = items.get(i);
+
+        myViewHolder.txtTitle.setText(currentItem.getName());
+        myViewHolder.imageView.setImageResource(currentItem.getImage());
     }
 
     public RecycleAdapter(ArrayList<ShoppingItem> items) {

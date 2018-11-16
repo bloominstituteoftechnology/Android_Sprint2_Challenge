@@ -1,5 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,11 +18,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ShoppingItem> items;
     RecyclerView recyclerView;
     RecycleAdapter adapter;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = this.getPreferences(Context.MODE_PRIVATE);
 
         ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
         String name;
