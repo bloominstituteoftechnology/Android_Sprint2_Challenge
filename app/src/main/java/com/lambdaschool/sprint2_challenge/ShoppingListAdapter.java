@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/*public class ShoppingListAdapter  extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>{
+public class ShoppingListAdapter  extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayout;
@@ -27,4 +27,42 @@ import java.util.ArrayList;
             textView = itemView.findViewById(R.id.text_item);
         }
     }
-}*/
+
+    private ArrayList<ShoppingItem> dataList;
+    private Context context;
+
+    public ShoppingListAdapter(ArrayList<ShoppingItem> dataList) {
+        this.dataList = dataList;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout,parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ShoppingListAdapter.ViewHolder holder, int position){
+        final ShoppingItem data = dataList.get(position);
+        holder.textView.setText(data.getName());
+        holder.imageView.setImageResource(data.getImageId());
+//        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+/*                Intent clickIntent = new Intent(context, MainActivity.class);
+                clickIntent.putExtra("DISPLAY_IMAGE",data);
+                context.startActivity(clickIntent);*/
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return dataList.size();
+    }
+}
