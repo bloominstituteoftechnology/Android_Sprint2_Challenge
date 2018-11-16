@@ -1,8 +1,11 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 
 public class ShoppingList {
+
 
     public static ArrayList<ShoppingItem> getItems(){
         ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
@@ -16,4 +19,18 @@ public class ShoppingList {
     }
     return items;
 }
+    public static void setCheckedStatus(int id,boolean checked) {
+        if (MainActivity.preferences != null) {
+            SharedPreferences.Editor editor = MainActivity.preferences.edit();
+            editor.putBoolean(Constants.KEY_ID + id, checked);
+            editor.apply();
+        }
+    }
+    public static boolean getCheckedStatus(int id) {
+        boolean checked = false;
+        if (MainActivity.preferences != null) {
+            checked = MainActivity.preferences.getBoolean(Constants.KEY_ID + id,false);
+        }
+        return checked;
+    }
 }

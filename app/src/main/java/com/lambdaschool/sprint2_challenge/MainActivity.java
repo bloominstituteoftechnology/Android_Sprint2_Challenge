@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ShoppingItem> items;
     RecyclerView recyclerView;
     RecycleAdapter adapter;
-    SharedPreferences preferences;
+    public static SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
