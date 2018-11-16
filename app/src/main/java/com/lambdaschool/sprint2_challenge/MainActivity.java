@@ -23,33 +23,22 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private GroceryListAdapter listAdapter;
 
-    private ArrayList<Grocery> groceryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        context = this;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = this;
         activity = this;
-
-
-        findViewById(R.id.select_item_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         recyclerView = findViewById(R.id.shopping_list_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(context, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        groceryList = GroceryDao.getGroceryInv();
 
-        listAdapter = new GroceryListAdapter(groceryList, activity);
+        listAdapter = new GroceryListAdapter(GroceryDao.getGroceryInv(), activity);
         recyclerView.setAdapter(listAdapter);
 
 
