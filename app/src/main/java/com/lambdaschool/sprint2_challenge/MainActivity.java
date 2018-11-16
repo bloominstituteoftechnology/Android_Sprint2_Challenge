@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        for (int i = 0; i < ShoppingItemConstants.ICON_IDS.length; i++){
-            groceryList.add(new Grocery(ShoppingItemConstants.ICON_IDS[i], ShoppingItemConstants.ITEM_NAMES_RAW[i]));
-        }
+
+//        for (int i = 0; i < 252; i++){
+//            groceryList.add(new Grocery(ShoppingItemConstants.ICON_IDS[i], ShoppingItemConstants.ITEM_NAMES_RAW[i]));
+//        }
 
         listAdapter = new GroceryListAdapter(groceryList, activity);
         recyclerView.setAdapter(listAdapter);
