@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout linearLayout;
         private ImageView imageView;
-        private TextView textView;
+        private Switch textView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -49,9 +50,10 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Grocery thing = groceries.get(position);
         holder.textView.setText(thing.getName());
+        holder.textView.setTextSize(24);
         holder.imageView.setImageDrawable(context.getDrawable(thing.getIcon()));
 //        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
