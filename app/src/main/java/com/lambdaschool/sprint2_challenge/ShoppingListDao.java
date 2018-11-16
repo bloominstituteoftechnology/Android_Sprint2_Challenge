@@ -19,18 +19,25 @@ public class ShoppingListDao {
         }
         return items;
     }
+
     public static boolean getCheckedStatus(int id) {
-        boolean checked = false;
+        boolean checked = true;
+        String key = KEY_ID_PREFIX + id;
         if (MainActivity.preferences != null) {
-            checked = MainActivity.preferences.getBoolean(KEY_ID_PREFIX + id,false);
+            checked = MainActivity.preferences.getBoolean(key, false);
         }
         return checked;
     }
 
-    public static void setCheckedStatus(int id,boolean checked) {
+    public static void setCheckedStatus(int id, boolean checked) {
         if (MainActivity.preferences != null) {
+            String key = KEY_ID_PREFIX + id;
             SharedPreferences.Editor editor = MainActivity.preferences.edit();
-            editor.putBoolean(KEY_ID_PREFIX + id, checked);
+            if (!checked) {
+                editor.remove(key);
+            } else {
+                editor.putBoolean(key, checked);
+            }
             editor.apply();
         }
     }

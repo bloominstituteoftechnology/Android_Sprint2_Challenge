@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,22 +54,18 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final ShoppingItem data = dataList.get(position);
         holder.textView.setText(data.getName());
         holder.imageView.setImageResource(data.getImageId());
-        holder.addSwitch.setChecked(ShoppingListDao.getCheckedStatus(data.getId()));
-        holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        int temp = data.getId();
+        if (data.getId() == 0) {
+            boolean tempchecked = ShoppingListDao.getCheckedStatus(data.getId());
+            Log.i("Test", "onBindViewHolder: ");
+        }
+                holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 ShoppingListDao.setCheckedStatus(data.getId(), isChecked);
             }
         });
-/*        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-*//*                Intent clickIntent = new Intent(context, MainActivity.class);
-                clickIntent.putExtra("DISPLAY_IMAGE",data);
-                context.startActivity(clickIntent);*//*
-            }
-        });*/
-
+        holder.addSwitch.setChecked(ShoppingListDao.getCheckedStatus(data.getId()));
     }
 
     @Override
