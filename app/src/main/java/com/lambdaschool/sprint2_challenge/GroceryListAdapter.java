@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.ViewHolder> {
+
     static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout linearLayout;
-        ImageView imageView;
-        TextView textView;
+        private LinearLayout linearLayout;
+        private ImageView imageView;
+        private TextView textView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -31,10 +32,12 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
 
     private ArrayList<Grocery> groceries;
     private Context context;
+    private Activity activity;
 
 
-    public GroceryListAdapter(ArrayList<Grocery> groceries) {
+    public GroceryListAdapter(ArrayList<Grocery> groceries, Activity activity) {
         this.groceries = groceries;
+        this.activity = activity;
     }
 
     @NonNull
@@ -46,10 +49,10 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Grocery thing = groceries.get(position);
         holder.textView.setText(thing.getName());
-        holder.imageView.setImageResource(thing.getIcon());
+        holder.imageView.setImageDrawable(context.getDrawable(thing.getIcon()));
 //        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
