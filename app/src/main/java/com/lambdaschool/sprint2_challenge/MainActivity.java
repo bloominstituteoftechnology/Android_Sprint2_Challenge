@@ -21,18 +21,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<String> names = Arrays.asList(ShoppingItemConstants.ITEM_NAMES_RAW);
 
-        items = new ArrayList<>();
-        recyclerView = findViewById(R.id.recycleViewer);
-        adapter = new RecycleAdapter(items);
+        ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
+        String name;
+        int id, imageId;
+        for (int i = 0; i < ShoppingItemConstants.ITEM_NAMES_RAW.length; i++) {
+            id = i;
+            name = ShoppingItemConstants.ITEM_NAMES_RAW[i];
+            imageId = ShoppingItemConstants.ICON_IDS[i];
+            items.add(new ShoppingItem(name, imageId, id));
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(itemDecor);
-        recyclerView.setAdapter(adapter);
+            recyclerView = findViewById(R.id.recycleViewer);
+            adapter = new RecycleAdapter(items);
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(layoutManager);
+            DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(itemDecor);
+            recyclerView.setAdapter(adapter);
 
 
+        }
     }
 }
