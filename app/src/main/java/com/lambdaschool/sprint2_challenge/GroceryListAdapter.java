@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.ViewHolder> {
-    static class ViewHolder extends  RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayout;
         ImageView imageView;
         TextView textView;
@@ -51,7 +51,17 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
         final Grocery thing = groceries.get(position);
         holder.textView.setText(thing.getName()
                 .replaceAll("\\d", "").replaceAll("_", ""));
-        //holder.imageView.setImageURI();
+        holder.imageView.setImageResource(thing.getIcon());
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return groceries.size();
     }
 }
