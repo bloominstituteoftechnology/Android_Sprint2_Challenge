@@ -6,7 +6,7 @@ public class ShoppingItem {
     public int id, imageId;
     public String name;
 
-    public ShoppingItem(String name, int imageId, int id) {
+    public ShoppingItem(int id, String name, int imageId) {
         this.id = id;
         this.name = name;
         this.imageId = imageId;
