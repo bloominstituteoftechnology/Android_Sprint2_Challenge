@@ -23,6 +23,7 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
         private Switch textView;
 
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             linearLayout = itemView.findViewById(R.id.parent_view);
@@ -55,12 +56,12 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
         holder.textView.setText(thing.getName());
         holder.textView.setTextSize(24);
         holder.imageView.setImageDrawable(context.getDrawable(thing.getIcon()));
-//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
