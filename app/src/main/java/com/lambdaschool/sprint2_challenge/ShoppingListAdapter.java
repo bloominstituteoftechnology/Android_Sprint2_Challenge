@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ShoppingListAdapter  extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>{
+/*public class ShoppingListAdapter  extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayout;
@@ -27,4 +27,4 @@ public class ShoppingListAdapter  extends RecyclerView.Adapter<ShoppingListAdapt
             textView = itemView.findViewById(R.id.text_item);
         }
     }
-}
+}*/
