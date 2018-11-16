@@ -27,17 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = this.getPreferences(Context.MODE_PRIVATE);
 
-        ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
-        String name;
-        int id, imageId;
-        for (int i = 0; i < ShoppingItemConstants.ITEM_NAMES_RAW.length; i++) {
-            id = i;
-            name = ShoppingItemConstants.ITEM_NAMES_RAW[i];
-            imageId = ShoppingItemConstants.ICON_IDS[i];
-            items.add(new ShoppingItem(name, imageId, id));
+
 
             recyclerView = findViewById(R.id.recycleViewer);
-            adapter = new RecycleAdapter(items);
+            adapter = new RecycleAdapter(ShoppingList.getItems());
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(layoutManager);
@@ -48,4 +41,3 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-}
