@@ -23,5 +23,4 @@ public class ShoppingItem {
     public int getId() {
         return id;
     }
-
 }

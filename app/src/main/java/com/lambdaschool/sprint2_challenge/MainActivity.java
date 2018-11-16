@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,15 +14,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private ArrayList<ShoppingItem> itemArrayList = new ArrayList<>();
-
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private ShoppingListAdapter listAdapter;
+    public static SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        preferences = this.getPreferences(Context.MODE_PRIVATE);
+
         context = this;
         itemArrayList = ShoppingListDao.getAllItems();
 
