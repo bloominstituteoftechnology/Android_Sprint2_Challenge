@@ -31,11 +31,10 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
 
     private ArrayList<Grocery> groceries;
     private Context context;
-    private Activity activity;
 
-    public GroceryListAdapter(ArrayList<Grocery> groceries, Activity activity) {
+
+    public GroceryListAdapter(ArrayList<Grocery> groceries) {
         this.groceries = groceries;
-        this.activity = activity;
     }
 
     @NonNull
@@ -49,15 +48,14 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Grocery thing = groceries.get(position);
-        holder.textView.setText(thing.getName()
-                .replaceAll("\\d", "").replaceAll("_", ""));
+        holder.textView.setText(thing.getName());
         holder.imageView.setImageResource(thing.getIcon());
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override

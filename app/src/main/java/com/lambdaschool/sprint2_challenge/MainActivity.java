@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private GroceryListAdapter listAdapter;
 
-    private ArrayList<Grocery> groceryList = new ArrayList<>();
+    private ArrayList<Grocery> groceryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +44,9 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        groceryList = GroceryDao.getGroceryInv();
 
-//        for (int i = 0; i < 252; i++){
-//            groceryList.add(new Grocery(ShoppingItemConstants.ICON_IDS[i], ShoppingItemConstants.ITEM_NAMES_RAW[i]));
-//        }
-
-        listAdapter = new GroceryListAdapter(groceryList, activity);
+        listAdapter = new GroceryListAdapter(groceryList);
         recyclerView.setAdapter(listAdapter);
 
 
