@@ -4,6 +4,7 @@ package com.lambdaschool.sprint2_challenge;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShoppingListModel {
 
@@ -21,37 +22,23 @@ public class ShoppingListModel {
     public static String getItemsSelectedName(){
         String itemsSelected = "";
         ArrayList<ShoppingItem> allItems = getAllItems();
-        String ids = getSelectedItemsString();
-        Log.i("selecteditems", ids);
+        String[] ids = getSelectedItems();
+        Log.i("selecteditems", Arrays.toString(ids));
         for(int i = 0; i < allItems.size(); i++){
             ShoppingItem item = allItems.get(i);
             String id = Integer.toString(allItems.get(i).getId());
             Log.i("allids", Integer.toString(allItems.get(i).getId()));
-            if(ids.contains(id)){
-                itemsSelected += item.getName() + ", ";
-                Log.i("contains id", "containts id");
-                Log.i("selectid", ids);
-                Log.i("selectiditem", id);
+            for(int j = 0; j < ids.length; i++) {
+                if(Integer.toString(item.getId()) == ids[j]){
+                    itemsSelected += item.getName() + ", ";
+                    Log.i("contains id", "containts id");
+                    //Log.i("selectid", ids);
+                    Log.i("selectiditem", id);
+                }
             }
         }
         Log.i("addeditems", itemsSelected);
         return  itemsSelected;
-    }
-
-    public static Boolean checkIfSelected(ShoppingItem item){
-        boolean selected = false;
-        String[] selectedIds = getSelectedItems();
-        for(String id : selectedIds){
-            if(id != ""){
-                Log.i("AWDAWDinput", id);
-                if(item.getId() == Integer.parseInt(id)){
-                    selected = true;
-                    return selected;
-
-                }
-            }
-        }
-        return selected;
     }
 
     public static String[] getSelectedItems(){

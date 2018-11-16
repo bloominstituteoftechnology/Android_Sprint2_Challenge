@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="@dimen/cardview_corner_left"
+    android:layout_marginTop="@dimen/cardview_corner_top"
+    android:layout_width="355dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/list_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="match_parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <Switch
+            android:id="@+id/list_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cardview_textview_item_name"
+            android:textAlignment="center"
+            android:textSize="@dimen/cardview_textview_text_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
