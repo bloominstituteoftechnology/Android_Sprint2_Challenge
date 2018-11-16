@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         foodDataList = FoodDataFactory.getFoodDataList();
-      //  Log.i("Factory called", colorFoodList.toString());
+
 
         recyclerView = findViewById(R.id.recycler_view);
 

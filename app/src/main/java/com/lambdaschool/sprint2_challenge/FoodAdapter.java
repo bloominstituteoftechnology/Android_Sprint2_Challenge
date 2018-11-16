@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -19,7 +20,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         ViewHolder(View view) {
             super(view);
 
-            parentLayout = view.findViewById(R.id.color_parent_layout);
+            parentLayout = view.findViewById(R.id.food_parent_layout);
             nameView = view.findViewById(R.id.food_name_text);
             idView = view.findViewById(R.id.food_name_id);
         }
