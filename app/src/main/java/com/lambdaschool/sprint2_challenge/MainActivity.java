@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new GroceryListAdapter(GroceryDao.getGroceryInv(), activity);
         recyclerView.setAdapter(listAdapter);
 
+        findViewById(R.id.select_item_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+
+            }
+        });
+
 
 
     }
