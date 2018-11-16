@@ -1,9 +1,13 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +19,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int NOTIFICATION_ID = 0;
     public static SharedPreferences preferences;
+
+    NotificationManager notificationManager;
 
     private RecyclerView listRecyclerView;
     private ShoppingListAdapter listAdapter;
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         activity = this;
 
+        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         listRecyclerView = findViewById(R.id.list_view);
         listRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -53,6 +62,25 @@ public class MainActivity extends AppCompatActivity {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, ShoppingListModel.getItemsSelectedName());
                 shareIntent.setType("text/plain");
                 startActivity(Intent.createChooser(shareIntent, "sending"));
+
+               String channelId = getPackageName() + getString(R.string.channel_id_suffix);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    CharSequence name = getString(R.string.channel_name);
+                    String description = getString(R.string.channel_description);
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                    channel.setDescription(description);
+                    notificationManager.createNotificationChannel(channel);
+                }
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+                        .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                        .setSmallIcon(R.drawable.ic_list_black_24dp)
+                        .setContentTitle("Confirmation")
+                        .setContentText("Your order has been placed!")
+                        .setColor(getResources().getColor(R.color.colorAccent))
+                        .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+                        .setAutoCancel(true);
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
             }
         });
     }
