@@ -4,7 +4,6 @@ package com.lambdaschool.sprint2_challenge;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ShoppingListModel {
 
@@ -22,19 +21,17 @@ public class ShoppingListModel {
     public static String getItemsSelectedName(){
         String itemsSelected = "";
         ArrayList<ShoppingItem> allItems = getAllItems();
-        String[] ids = getSelectedItems();
-        Log.i("selecteditems", Arrays.toString(ids));
+        String ids = getSelectedItemsString();
+        Log.i("selecteditems", ids);
         for(int i = 0; i < allItems.size(); i++){
             ShoppingItem item = allItems.get(i);
             String id = Integer.toString(allItems.get(i).getId());
             Log.i("allids", Integer.toString(allItems.get(i).getId()));
-            for(int j = 0; j < ids.length; i++) {
-                if(Integer.toString(item.getId()) == ids[j]){
-                    itemsSelected += item.getName() + ", ";
-                    Log.i("contains id", "containts id");
-                    //Log.i("selectid", ids);
-                    Log.i("selectiditem", id);
-                }
+            if(ids.contains(id)){
+                itemsSelected += item.getName() + ", ";
+                Log.i("contains id", "containts id");
+                Log.i("selectid", ids);
+                Log.i("selectiditem", id);
             }
         }
         Log.i("addeditems", itemsSelected);
