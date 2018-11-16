@@ -2,6 +2,7 @@ package com.lambdaschool.sprint2_challenge;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,12 +23,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         List<String> names = Arrays.asList(ShoppingItemConstants.ITEM_NAMES_RAW);
 
-        items = new ArrayList<ShoppingItem>();
+        items = new ArrayList<>();
         recyclerView = findViewById(R.id.recycleViewer);
         adapter = new RecycleAdapter(items);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
+        recyclerView.setAdapter(adapter);
 
 
     }
