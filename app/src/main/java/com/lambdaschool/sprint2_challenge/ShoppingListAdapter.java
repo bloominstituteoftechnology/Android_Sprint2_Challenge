@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,14 +20,15 @@ import java.util.ArrayList;
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout constraintLayout;
+        ViewGroup parentView;
         ImageView imageView;
         TextView textView;
         Switch addSwitch;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            constraintLayout = itemView.findViewById(R.id.layout_items);
+            parentView = itemView.findViewById(R.id.layout_items);
             imageView = itemView.findViewById(R.id.image_item);
             textView = itemView.findViewById(R.id.text_item);
             addSwitch = itemView.findViewById(R.id.item_switch);
@@ -36,6 +38,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     private ArrayList<ShoppingItem> dataList;
     private Context context;
+    ListAdapter listAdapter;
 
     public ShoppingListAdapter(ArrayList<ShoppingItem> dataList) {
         this.dataList = dataList;
@@ -50,10 +53,18 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(ShoppingListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ShoppingListAdapter.ViewHolder holder, final int position) {
         final ShoppingItem data = dataList.get(position);
         holder.textView.setText(data.getName());
         holder.imageView.setImageResource(data.getImageId());
+        holder.parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean status = !ShoppingListDao.getCheckedStatus(data);
+                ShoppingListDao.setCheckedStatus(data, status);
+                ShoppingListAdapter.this.notifyItemChanged(position);
+            }
+        });
         holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
