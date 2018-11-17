@@ -43,7 +43,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final ShoppingItem item = items.get(position);
         holder.itemName.setText(item.getName());
-        holder.itemImage.setImageDrawable(GlobalClass.context.getDrawable(item.getImage()));
+        holder.itemImage.setImageDrawable(holder.itemImage.getContext().getDrawable(item.getImage()));
 
         if(ShoppingListModel.isInSelected(Integer.toString(items.get(position).getId()))){
             holder.itemName.setBackgroundColor(Color.GREEN);
