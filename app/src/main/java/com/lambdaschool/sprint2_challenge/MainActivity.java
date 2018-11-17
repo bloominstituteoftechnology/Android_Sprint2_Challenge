@@ -1,6 +1,5 @@
 package com.lambdaschool.sprint2_challenge;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -9,13 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -41,16 +38,14 @@ public class MainActivity extends AppCompatActivity {
         Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         context = this;
         preferences = this.getPreferences(Context.MODE_PRIVATE);
-        notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         itemArrayList = ShoppingListDao.getAllItems();
         recyclerView = findViewById(R.id.items_recycler_view);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(context,GridLayoutManager.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(context, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         listAdapter = new ShoppingListAdapter(itemArrayList);
         recyclerView.setAdapter(listAdapter);
@@ -72,30 +67,28 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_share) {
             ArrayList<String> checkedList = ShoppingListDao.getCheckedBookNames();
             String sendContent = "Shopping List: ";
-            for (int i=0;i<checkedList.size();++i) {
-                if (i<checkedList.size()-1) {
-                    sendContent +=(checkedList.get(i) + ", ");
+            for (int i = 0; i < checkedList.size(); ++i) {
+                if (i < checkedList.size() - 1) {
+                    sendContent += (checkedList.get(i) + ", ");
                 } else {
-                    sendContent +=(checkedList.get(i) + ".");
+                    sendContent += (checkedList.get(i) + ".");
                 }
             }
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, sendContent );
+            intent.putExtra(Intent.EXTRA_TEXT, sendContent);
             intent.createChooser(intent, "Share via");
             startActivityForResult(intent, REQUEST_CODE);
 
             return true;
         }
 
-
         if (id == R.id.action_reset) {
-           ShoppingListDao.resetAll();
-            Intent intent = new Intent(context,MainActivity.class);
+            ShoppingListDao.resetAll();
+            Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -103,25 +96,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == REQUEST_CODE) {
-                String channelId = getPackageName() + ".share";
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    CharSequence name = "Share Channel";
-                    String description = "Notifications triggered sharing.";
-                    int importance = NotificationManager.IMPORTANCE_HIGH;
-                    NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-                    channel.setDescription(description);
+        if (requestCode == REQUEST_CODE) {
+            String channelId = getPackageName() + ".share";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                CharSequence name = "Share Channel";
+                String description = "Notifications triggered sharing.";
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                channel.setDescription(description);
 
-                    notificationManager.createNotificationChannel(channel);
-                }
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context,channelId)
-                        .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                        .setContentTitle("Shopping List")
-                        .setContentText("Shopping list sent!")
-                        .setColor(context.getColor(R.color.colorPrimary))
-                        .setSmallIcon(android.R.drawable.ic_dialog_alert);
-                notificationManager.notify(SHARE_NOTIFICATION_ID,builder.build());
+                notificationManager.createNotificationChannel(channel);
             }
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+                    .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                    .setContentTitle("Shopping List")
+                    .setContentText("Shopping list shared!")
+                    .setColor(context.getColor(R.color.colorPrimary))
+                    .setSmallIcon(android.R.drawable.ic_dialog_alert);
+            notificationManager.notify(SHARE_NOTIFICATION_ID, builder.build());
+        }
     }
 }

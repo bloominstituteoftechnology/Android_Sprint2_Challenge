@@ -1,20 +1,14 @@
 package com.lambdaschool.sprint2_challenge;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
@@ -26,7 +20,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         Switch addSwitch;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             parentView = itemView.findViewById(R.id.layout_items);
             imageView = itemView.findViewById(R.id.image_item);
@@ -37,24 +31,21 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     private ArrayList<ShoppingItem> dataList;
-    private Context context;
-    ListAdapter listAdapter;
 
-    public ShoppingListAdapter(ArrayList<ShoppingItem> dataList) {
+    ShoppingListAdapter(ArrayList<ShoppingItem> dataList) {
         this.dataList = dataList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ShoppingListAdapter.ViewHolder holder, final int position) {
-        final ShoppingItem data = dataList.get(position);
+    public void onBindViewHolder(final ShoppingListAdapter.ViewHolder holder, final int position) {
+        final ShoppingItem data = dataList.get(holder.getAdapterPosition());
         holder.textView.setText(data.getName());
         holder.imageView.setImageResource(data.getImageId());
         holder.parentView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +53,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             public void onClick(View v) {
                 boolean status = !ShoppingListDao.getCheckedStatus(data);
                 ShoppingListDao.setCheckedStatus(data, status);
-                ShoppingListAdapter.this.notifyItemChanged(position);
+                ShoppingListAdapter.this.notifyItemChanged(holder.getAdapterPosition());
             }
         });
         holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -78,7 +69,4 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public int getItemCount() {
         return dataList.size();
     }
-
 }
-
-//TODO replace _ in names of items and captitalize.
