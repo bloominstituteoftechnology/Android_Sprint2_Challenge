@@ -11,6 +11,21 @@ public class ShoppingItem {
         this.id = id;
     }
 
+    public ShoppingItem(String csvString){
+        String[] values = csvString.split(",");
+        this.name = values[0];
+        this.image = Integer.parseInt(values[1]);
+        this.id = Integer.parseInt(values[2]);
+    }
+
+    public ShoppingItem(int id) {
+        this.id = id;
+    }
+
+    public String toCsvString(){
+        return this.name + "," + this.image + "," + this.id;
+    }
+
     public String getName() {
         return name;
     }

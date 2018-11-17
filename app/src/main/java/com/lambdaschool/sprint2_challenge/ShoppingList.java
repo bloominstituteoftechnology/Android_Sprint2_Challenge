@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 public class ShoppingList {
 
-    static ArrayList<ShoppingItem> selectedItems;
+    private static ArrayList<ShoppingItem> selectedItems;
+    private static int selectedId;
+    private static String selectedItem;
+    private static int selectedImage;
 
     public static ArrayList<ShoppingItem> getItems() {
         ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
@@ -22,22 +25,17 @@ public class ShoppingList {
     }
 
     public static ArrayList<ShoppingItem> getSelectedItems() {
-
-        ArrayList<ShoppingItem> items = getItems();
-        for (ShoppingItem item : items)
-            if (MainActivity.preferences != null) {
-                Boolean bool = getCheckedStatus(item.getId());
-                if (bool) {
-                    selectedItems = new ArrayList<ShoppingItem>();
-                    String selectedItem = item.getName();
-                    int selectedId = item.getId();
-                    int selectedImage = item.getImage();
-                    selectedItems.add(new ShoppingItem(selectedItem, selectedImage, selectedId));
-                }
+       ArrayList<ShoppingItem> items = getItems();
+       selectedItems = new ArrayList<>();
+        for (ShoppingItem item :items) {
+            if (getCheckedStatus(item.getId())){
+                selectedItems.add(item);
             }
-
+        }
         return selectedItems;
     }
+
+
 
     public static void setCheckedStatus(int id, boolean checked) {
         if (MainActivity.preferences != null) {
