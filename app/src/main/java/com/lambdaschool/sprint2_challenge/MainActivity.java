@@ -27,10 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView listRecyclerView;
     private ShoppingListAdapter listAdapter;
     private LinearLayoutManager layoutManager;
-    private String[] list;
-
     private Context context;
-    private Activity activity;
 
     private Button sendListButton;
 
@@ -40,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         preferences = this.getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE);
-
         context = this;
-        activity = this;
 
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 

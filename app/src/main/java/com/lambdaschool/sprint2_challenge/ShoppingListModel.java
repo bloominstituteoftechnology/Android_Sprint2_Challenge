@@ -1,7 +1,5 @@
 package com.lambdaschool.sprint2_challenge;
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
 
 public class ShoppingListModel {
@@ -18,15 +16,19 @@ public class ShoppingListModel {
     }
 
     public static String getItemsSelectedName(){
-        String itemsSelected = "";
+        String itemsSelected = "Could you please pick these up?  ";
         ArrayList<ShoppingItem> allItems = getAllItems();
         String[] ids = getSelectedItems();
         for(ShoppingItem item : allItems){
             for(int i = 0; i < ids.length; i++){
                 if(Integer.toString(item.getId()).equals(ids[i])){
-                    itemsSelected += item.getName() + ", ".replaceAll("_", " ");
+                    String name = item.getName().replaceAll("_", " ");
+                    itemsSelected += name + ", ";
                 }
             }
+        }
+        if (itemsSelected.endsWith(", ")) {
+            itemsSelected = itemsSelected.substring(0, itemsSelected.length() - 2);
         }
         return  itemsSelected;
     }
@@ -44,10 +46,6 @@ public class ShoppingListModel {
     public static String[] getSelectedItems() {
         String selectedItems = SharedPrefsDao.getSelectedIdsString();
         return selectedItems.split(",");
-    }
-
-    public static String getSelectedItemsString(){
-        return SharedPrefsDao.getSelectedIdsString();
     }
 
     public static void addToSelectedList(int id){
