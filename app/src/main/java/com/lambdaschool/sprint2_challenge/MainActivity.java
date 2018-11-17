@@ -1,8 +1,14 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +25,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int SHARE_NOTIFICATION_ID = 1;
+    public static final int REQUEST_CODE = 5;
     private Context context;
     private ArrayList<ShoppingItem> itemArrayList = new ArrayList<>();
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private ShoppingListAdapter listAdapter;
     public static SharedPreferences preferences;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +44,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         context = this;
-
         preferences = this.getPreferences(Context.MODE_PRIVATE);
+        notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-
-        context = this;
         itemArrayList = ShoppingListDao.getAllItems();
-
         recyclerView = findViewById(R.id.items_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(context,GridLayoutManager.VERTICAL,false);
@@ -77,7 +83,9 @@ public class MainActivity extends AppCompatActivity {
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, sendContent );
-            startActivity(Intent.createChooser(intent, "Share via"));
+            intent.createChooser(intent, "Share via");
+            startActivityForResult(intent, REQUEST_CODE);
+
             return true;
         }
 
@@ -90,5 +98,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == REQUEST_CODE) {
+                String channelId = getPackageName() + ".share";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    CharSequence name = "Share Channel";
+                    String description = "Notifications triggered sharing.";
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                    channel.setDescription(description);
+
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context,channelId)
+                        .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                        .setContentTitle("Shopping List")
+                        .setContentText("Shopping list sent!")
+                        .setColor(context.getColor(R.color.colorPrimary))
+                        .setSmallIcon(android.R.drawable.ic_dialog_alert);
+                notificationManager.notify(SHARE_NOTIFICATION_ID,builder.build());
+            }
     }
 }
