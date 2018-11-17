@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cardview_corner_radius">5dp</dimen>
+    <dimen name="cardview_margin_left">29.5dp</dimen>
     <dimen name="cardview_corner_top">5dp</dimen>
     <dimen name="cardview_corner_left">15dp</dimen>
     <dimen name="cardview_textview_text_size">20sp</dimen>

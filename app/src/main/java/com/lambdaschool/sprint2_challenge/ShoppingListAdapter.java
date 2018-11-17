@@ -25,23 +25,22 @@ import java.util.Arrays;
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private LinearLayout listParent;
-        private Switch itemName;
+
+        private TextView itemName;
         private ImageView itemImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            listParent = itemView.findViewById(R.id.list_parent);
+
             itemName = itemView.findViewById(R.id.list_item_name);
             itemImage = itemView.findViewById(R.id.item_image);
         }
     }
 
     private ArrayList<ShoppingItem> items;
-    private String[] list;
     private Context context;
     private Activity activity;
-
+    private boolean isChecked = false;
 
     public ShoppingListAdapter(ArrayList<ShoppingItem> items, Activity activity) {
         this.items = items;
@@ -61,26 +60,29 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final ShoppingItem item = items.get(position);
         holder.itemName.setText(item.getName());
         holder.itemImage.setImageDrawable(context.getDrawable(item.getImage()));
-
-        holder.itemName.setOnCheckedChangeListener(null);
-        holder.itemName.setChecked(item.getSelected());
-        holder.itemName.setBackgroundColor(item.getColor());
-
+        holder.itemName.setBackgroundColor(Color.WHITE);
         String ids = ShoppingListModel.getSelectedItemsString();
         String[] idsArray = ids.split(",");
-        Log.i("idsarray", idsArray[0]);
-
-        holder.itemName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    item.setSelected(isChecked);
-                    ShoppingListModel.addToSelectedList(items.get(position).getId());
-                }else{
-                    item.setSelected(!isChecked);
-                    ShoppingListModel.removeFromSelected(items.get(position).getId());
+        if(idsArray != null){
+            for(String id :  idsArray){
+                if(id != ""){
+                    if(id.equals(Integer.toString(position))){
+                        holder.itemName.setBackgroundColor(Color.GREEN);
+                    }
                 }
-                Log.i("shoplist", ShoppingListModel.getSelectedItemsString());
+            }
+        }
+
+        holder.itemName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isChecked){
+                    ShoppingListModel.removeFromSelected(items.get(position).getId());
+                    isChecked = false;
+                }else{
+                    ShoppingListModel.addToSelectedList(items.get(position).getId());
+                    isChecked = true;
+                }
             }
         });
     }

@@ -6,4 +6,5 @@
     <attr name="cardview_margin_left" format="reference"/>
     <attr name="cardview_textview_text_size" format="reference"/>
     <attr name="cardview_width" format="reference"/>
+    <attr name="cardview_text_color" format="reference"/>
 </resources>

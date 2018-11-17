@@ -6,4 +6,8 @@
     <string name="channel_id_suffix">.list</string>
     <string name="channel_name">list send channel name</string>
     <string name="channel_description">sent item list</string>
+    <string name="notification_order_placed_title">Confirmation</string>
+    <string name="notification_order_placed_content">Your order has been placed!</string>
+    <string name="share_intent_title">Share your order!</string>
+    <string name="shared_prefs_name">prefs</string>
 </resources>

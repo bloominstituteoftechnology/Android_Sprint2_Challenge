@@ -13,7 +13,7 @@ public class ShoppingListModel {
         String[] itemNames = ShoppingItemConstants.ITEM_NAMES_RAW;
         int[] itemImages = ShoppingItemConstants.ICON_IDS;
         for(int i = 0; i < itemNames.length; i++){
-            ShoppingItem item = new ShoppingItem(itemNames[i], itemImages[i], i, false, Color.WHITE);
+            ShoppingItem item = new ShoppingItem(itemNames[i], itemImages[i], i);
             items.add(item);
         }
         return items;
@@ -31,19 +31,6 @@ public class ShoppingListModel {
             }
         }
         return  itemsSelected;
-    }
-
-    public static boolean getIdInSelected(int id){
-        ArrayList<ShoppingItem> allItems = getAllItems();
-        String[] ids = getSelectedItems();
-        for(ShoppingItem item : allItems){
-            for(int i = 0; i < ids.length; i++){
-                if(Integer.toString(item.getId()).equals(ids[i])){
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public static String[] getSelectedItems() {

@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="cardview_background_color">#D9FFF5</color>
+    <color name="shoppingListThemePrimary">#A9B4C2</color>
+    <color name="shoppingListThemePrimaryDark">#00574B</color>
+    <color name="shoppingListThemeAccent">#272D2D</color>
+
+    <color name="cardview_background_color">#5E6572</color>
+    <color name="cardview_text_color">#BFA4A4</color>
 </resources>

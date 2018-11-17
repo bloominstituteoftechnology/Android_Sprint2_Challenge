@@ -2,13 +2,14 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginLeft="@dimen/cardview_corner_left"
     android:layout_marginTop="@dimen/cardview_corner_top"
-    android:layout_width="355dp"
+    app:cardBackgroundColor="?attr/cardview_background_color"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/list_parent"
+        
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -19,8 +20,9 @@
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <Switch
+        <TextView
             android:id="@+id/list_item_name"
+            android:textColor="?attr/cardview_text_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cardview_textview_item_name"

@@ -3,10 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/shoppingListThemePrimary</item>
+        <item name="colorPrimaryDark">@color/shoppingListThemePrimaryDark</item>
+        <item name="colorAccent">@color/shoppingListThemeAccent</item>
         <item name="cardview_background_color">@color/cardview_background_color</item>
+        <item name="cardview_text_color">@color/cardview_text_color</item>
     </style>
 
 </resources>

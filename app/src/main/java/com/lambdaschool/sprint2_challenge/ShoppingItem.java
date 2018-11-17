@@ -4,15 +4,11 @@ public class ShoppingItem {
     private String name;
     private int image;
     private int id;
-    private boolean isSelected;
-    private int color;
 
-    public ShoppingItem(String name, int image, int id, boolean isSelected, int color) {
+    public ShoppingItem(String name, int image, int id) {
         this.name = name;
         this.image = image;
         this.id = id;
-        this.isSelected = isSelected;
-        this.color = color;
     }
 
     public String getName() {
@@ -33,22 +29,6 @@ public class ShoppingItem {
 
     public int getId() {
         return id;
-    }
-
-    public boolean getSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selectecd) {
-        isSelected = selectecd;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 
     public void setId(int id) {

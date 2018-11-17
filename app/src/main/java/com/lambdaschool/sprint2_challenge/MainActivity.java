@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferences = this.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        preferences = this.getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE);
 
         context = this;
         activity = this;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, ShoppingListModel.getItemsSelectedName());
                 shareIntent.setType("text/plain");
-                startActivity(Intent.createChooser(shareIntent, "sending"));
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_title)));
 
                String channelId = getPackageName() + getString(R.string.channel_id_suffix);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                         .setPriority(NotificationManager.IMPORTANCE_HIGH)
                         .setSmallIcon(R.drawable.ic_list_black_24dp)
-                        .setContentTitle("Confirmation")
-                        .setContentText("Your order has been placed!")
+                        .setContentTitle(getString(R.string.notification_order_placed_title))
+                        .setContentText(getString(R.string.notification_order_placed_content))
                         .setColor(getResources().getColor(R.color.colorAccent))
                         .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
                         .setAutoCancel(true);
