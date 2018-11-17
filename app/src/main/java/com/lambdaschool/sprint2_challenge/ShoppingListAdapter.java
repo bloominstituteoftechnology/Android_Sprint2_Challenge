@@ -67,6 +67,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public int getItemCount() {
         return dataList.size();
     }
+
 }
 
 //TODO replace _ in names of items and captitalize.
