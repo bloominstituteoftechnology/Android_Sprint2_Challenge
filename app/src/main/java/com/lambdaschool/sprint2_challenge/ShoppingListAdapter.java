@@ -38,20 +38,15 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     private ArrayList<ShoppingItem> items;
-    private Context context;
-    private Activity activity;
-    private boolean isChecked = false;
 
-    public ShoppingListAdapter(ArrayList<ShoppingItem> items, Activity activity) {
+    public ShoppingListAdapter(ArrayList<ShoppingItem> items) {
         this.items = items;
-        this.activity = activity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i){
-        context = viewGroup.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.list_element_layout, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_element_layout, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -59,30 +54,22 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final ShoppingItem item = items.get(position);
         holder.itemName.setText(item.getName());
-        holder.itemImage.setImageDrawable(context.getDrawable(item.getImage()));
-        holder.itemName.setBackgroundColor(Color.WHITE);
-        String ids = ShoppingListModel.getSelectedItemsString();
-        String[] idsArray = ids.split(",");
-        if(idsArray != null){
-            for(String id :  idsArray){
-                if(id != ""){
-                    if(id.equals(Integer.toString(position))){
-                        holder.itemName.setBackgroundColor(Color.GREEN);
-                    }
-                }
-            }
+        holder.itemImage.setImageDrawable(GlobalClass.context.getDrawable(item.getImage()));
+        //Log.i("onbind", "oamnda");
+        Log.i("position", Integer.toString(position));
+        if(ShoppingListModel.isInSelected(Integer.toString(items.get(position).getId()))){
+            holder.itemName.setBackgroundColor(Color.GREEN);
         }
-
         holder.itemName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isChecked){
-                    ShoppingListModel.removeFromSelected(items.get(position).getId());
-                    isChecked = false;
-                }else{
+                if(!ShoppingListModel.isInSelected(Integer.toString(items.get(position).getId()))){
                     ShoppingListModel.addToSelectedList(items.get(position).getId());
-                    isChecked = true;
+                    Log.i("position", Integer.toString(position));
+                }else {
+                    ShoppingListModel.removeFromSelected(items.get(position).getId());
                 }
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
     }

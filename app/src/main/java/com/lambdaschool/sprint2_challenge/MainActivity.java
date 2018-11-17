@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         listRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         listRecyclerView.setLayoutManager(layoutManager);
-        listAdapter = new ShoppingListAdapter(ShoppingListModel.getAllItems(), activity);
+        listAdapter = new ShoppingListAdapter(ShoppingListModel.getAllItems());
         listRecyclerView.setAdapter(listAdapter);
 
         sendListButton = findViewById(R.id.send_list_button);

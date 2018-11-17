@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class ShoppingListModel {
 
-    private boolean isChecked;
-
     public static ArrayList<ShoppingItem> getAllItems(){
         ArrayList<ShoppingItem> items = new ArrayList<>();
         String[] itemNames = ShoppingItemConstants.ITEM_NAMES_RAW;
@@ -33,6 +31,16 @@ public class ShoppingListModel {
         return  itemsSelected;
     }
 
+    public static boolean isInSelected(String id){
+        String[] ids = getSelectedItems();
+        for(int i = 0; i < ids.length; i++){
+            if((id.equals(ids[i]))){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static String[] getSelectedItems() {
         String selectedItems = SharedPrefsDao.getSelectedIdsString();
         return selectedItems.split(",");
@@ -47,15 +55,6 @@ public class ShoppingListModel {
     }
     public static void removeFromSelected(int id){
         SharedPrefsDao.removeFromSelected(id);
-    }
-
-
-    public boolean getChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
     }
 
 }
