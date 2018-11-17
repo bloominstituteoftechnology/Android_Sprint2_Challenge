@@ -7,20 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout linearLayout;
         private ImageView imageView;
-        private Switch textView;
+        private Switch isSwitched;
 
 
 
@@ -28,17 +27,18 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
             super(itemView);
             linearLayout = itemView.findViewById(R.id.parent_view);
             imageView = itemView.findViewById(R.id.image_item);
-            textView = itemView.findViewById(R.id.image_name);
+            isSwitched = itemView.findViewById(R.id.image_name);
         }
     }
 
-    private ArrayList<Grocery> groceries;
+    private ArrayList<Grocery> checkedGroceries;
+    private ArrayList<Grocery> uncheckedGroceries = new ArrayList<>();
     private Context context;
     private Activity activity;
 
 
     public GroceryListAdapter(ArrayList<Grocery> groceries, Activity activity) {
-        this.groceries = groceries;
+        this.checkedGroceries = groceries;
         this.activity = activity;
     }
 
@@ -52,20 +52,22 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        final Grocery thing = groceries.get(position);
-        holder.textView.setText(thing.getName());
-        holder.textView.setTextSize(24);
+        final Grocery thing = checkedGroceries.get(position);
+        holder.isSwitched.setText(thing.getName());
+        holder.isSwitched.setTextSize(24);
         holder.imageView.setImageDrawable(context.getDrawable(thing.getIcon()));
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.isSwitched.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
 
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return groceries.size();
+        return checkedGroceries.size();
     }
 }

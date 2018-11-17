@@ -11,7 +11,7 @@ public class GroceryDao {
             groceryInvList.add(
                     new Grocery(
                             ShoppingItemConstants.ICON_IDS[i],
-                            ShoppingItemConstants.ITEM_NAMES_RAW[i]));
+                            ShoppingItemConstants.ITEM_NAMES_RAW[i].replaceAll("_", " ").replaceAll("\\d", "")));
         }
 
         return groceryInvList;
