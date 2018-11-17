@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         if (id == R.id.action_share) {
+            ArrayList<String> checkedList = new ArrayList();
+            checkedList = ShoppingListDao.getCheckedBookNames();
+            String sendContent = "Shopping List:";
+            for (int i=0;i<checkedList.size();++i) {
+                if (i<checkedList.size()-1) {
+                    sendContent +=(checkedList.get(i) + ", ");
+                }
+            }
+            sendContent += ".";
+            Intent intent = new Intent(); intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, sendContent );
+            startActivity(Intent.createChooser(intent, "Share via"));
             return true;
         }
 

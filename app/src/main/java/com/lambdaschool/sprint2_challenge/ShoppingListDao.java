@@ -3,6 +3,7 @@ package com.lambdaschool.sprint2_challenge;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ShoppingListDao {
     private static final String KEY_ID_PREFIX = "key_id_";
@@ -20,25 +21,36 @@ public class ShoppingListDao {
         return items;
     }
 
-    public static boolean getCheckedStatus(int id) {
-        boolean checked = true;
-        String key = KEY_ID_PREFIX + id;
+    public static boolean getCheckedStatus(ShoppingItem item) {
+        int status = -1;
         if (MainActivity.preferences != null) {
-            checked = MainActivity.preferences.getBoolean(key, false);
+            status = MainActivity.preferences.getInt(item.name, -1);
+        }
+        boolean checked = false;
+        if (status != -1) {
+            checked = true;
         }
         return checked;
     }
 
-    public static void setCheckedStatus(int id, boolean checked) {
+    public static void setCheckedStatus(ShoppingItem item, boolean checked) {
         if (MainActivity.preferences != null) {
-            String key = KEY_ID_PREFIX + id;
             SharedPreferences.Editor editor = MainActivity.preferences.edit();
             if (!checked) {
-                editor.remove(key);
+                editor.remove(item.name);
             } else {
-                editor.putBoolean(key, checked);
+                editor.putInt(item.name, item.id);
             }
             editor.apply();
         }
+    }
+
+    public static ArrayList<String> getCheckedBookNames() {
+        ArrayList<String> items = new ArrayList<>();
+        Map<String, ?> allEntries = MainActivity.preferences.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            items.add(entry.getKey());
+        }
+        return items;
     }
 }

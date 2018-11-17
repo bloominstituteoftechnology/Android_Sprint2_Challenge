@@ -54,18 +54,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final ShoppingItem data = dataList.get(position);
         holder.textView.setText(data.getName());
         holder.imageView.setImageResource(data.getImageId());
-        int temp = data.getId();
-        if (data.getId() == 0) {
-            boolean tempchecked = ShoppingListDao.getCheckedStatus(data.getId());
-            Log.i("Test", "onBindViewHolder: ");
-        }
-                holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.addSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ShoppingListDao.setCheckedStatus(data.getId(), isChecked);
+                ShoppingListDao.setCheckedStatus(data, isChecked);
             }
         });
-        holder.addSwitch.setChecked(ShoppingListDao.getCheckedStatus(data.getId()));
+        holder.addSwitch.setChecked(ShoppingListDao.getCheckedStatus(data));
     }
 
     @Override

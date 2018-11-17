@@ -12,5 +12,5 @@
         android:id="@+id/action_share"
         android:orderInCategory="100"
         android:title="Share"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 </menu>
