@@ -11,7 +11,7 @@ public class ShoppingList {
     private static String selectedItem;
     private static int selectedImage;
 
-    public static ArrayList<ShoppingItem> getItems() {
+    public static ArrayList<ShoppingItem> getAllItems() {
         ArrayList<ShoppingItem> items = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
         String name;
         int id, imageId;
@@ -25,7 +25,7 @@ public class ShoppingList {
     }
 
     public static ArrayList<ShoppingItem> getSelectedItems() {
-       ArrayList<ShoppingItem> items = getItems();
+       ArrayList<ShoppingItem> items = getAllItems();
        selectedItems = new ArrayList<>();
         for (ShoppingItem item :items) {
             if (getCheckedStatus(item.getId())){

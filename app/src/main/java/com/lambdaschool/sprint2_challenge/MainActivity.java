@@ -34,13 +34,20 @@ private static final String TAG = MainActivity.class.getSimpleName();
             public void onClick(View v) {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
             items = new ArrayList<>(ShoppingList.getSelectedItems());
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                for (ShoppingItem item:items) {
+                    intent.putExtra("item_name" + String.valueOf(item.getId()), item.getName());
+                }
+                intent.setType("text/plain");
+                startActivity(intent);
+
                 Log.i(TAG, "CHRLES " + items.size());
             }
         });
 
 
         recyclerView = findViewById(R.id.recycleViewer);
-        adapter = new RecycleAdapter(ShoppingList.getItems());
+        adapter = new RecycleAdapter(ShoppingList.getAllItems());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
