@@ -18,13 +18,19 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         TextView  nameView;
         ImageView emojiView;
 
+
+
+
         ViewHolder(View view) {
             super(view);
             parentLayout = view.findViewById(R.id.element_parent_layer);
             nameView = view.findViewById(R.id.item_text);
             emojiView = view.findViewById(R.id.item_emoji);
+
         }
+
     }
+
 
     private ArrayList<ShoppingList> dataList;
     private Context                 context;
@@ -32,6 +38,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     ShoppingListAdapter(ArrayList<ShoppingList> dataList) {
         this.dataList = dataList;
     }
+
 
     @NonNull
     @Override
@@ -42,11 +49,24 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ShoppingList data = dataList.get(i);
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+        final ShoppingList data = dataList.get(i);
 
         viewHolder.nameView.setText(data.getGrocery_name()) ;
         viewHolder.emojiView.setImageResource(data.getGrocery_icon());
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                 if(data.isChecked()){
+                     data.setChecked(false);
+                     viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                 } else {
+                     data.setChecked(true);
+                     viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                 }
+            }
+        });
 
     }
 
@@ -54,4 +74,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public int getItemCount(){
         return dataList.size();
     }
+
+
 }

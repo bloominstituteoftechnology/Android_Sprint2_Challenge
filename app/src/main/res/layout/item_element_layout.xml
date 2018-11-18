@@ -4,7 +4,6 @@
     android:id="@+id/element_parent_layer"
     android:orientation="vertical"
     app:cardCornerRadius="3dp"
-    android:padding="30dp"
     android:elevation="@dimen/cardview_default_elevation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="7dp"
         android:orientation="horizontal">
 
         <ImageView
