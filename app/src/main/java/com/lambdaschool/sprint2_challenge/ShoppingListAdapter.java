@@ -53,6 +53,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final ShoppingList data = dataList.get(i);
 
+
         viewHolder.nameView.setText(data.getGrocery_name()) ;
         viewHolder.emojiView.setImageResource(data.getGrocery_icon());
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener()
@@ -69,6 +70,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                  }
             }
         });
+
+        if(data.isChecked()) {
+            viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        } else {
+            viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+        }
 
     }
 
