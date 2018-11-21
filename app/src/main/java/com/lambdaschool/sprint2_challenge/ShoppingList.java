@@ -14,6 +14,13 @@ public class ShoppingList{
         this.grocery_icon = grocery_icon;
     }
 
+    public ShoppingList(String csvString) {
+        String[] values = csvString.split(",");
+        this.grocery_name= values[0];
+
+        toCsvString();
+    }
+
     public String getGrocery_name() {
         return grocery_name;
     }
@@ -28,5 +35,9 @@ public class ShoppingList{
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public String toCsvString() {
+        return this.grocery_name.replaceAll(",", "");
     }
 }

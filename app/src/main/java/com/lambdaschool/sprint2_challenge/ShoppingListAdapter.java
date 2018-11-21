@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -61,6 +62,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                  if(data.isChecked()){
                      data.setChecked(false);
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                     Intent intent = new Intent(context, ShoppingList.class);
                  } else {
                      data.setChecked(true);
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
