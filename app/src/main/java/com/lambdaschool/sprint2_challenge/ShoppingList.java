@@ -25,16 +25,15 @@ public class ShoppingList {
     }
 
     public static ArrayList<ShoppingItem> getSelectedItems() {
-       ArrayList<ShoppingItem> items = getAllItems();
-       selectedItems = new ArrayList<>();
-        for (ShoppingItem item :items) {
-            if (getCheckedStatus(item.getId())){
+        ArrayList<ShoppingItem> items = getAllItems();
+        selectedItems = new ArrayList<>();
+        for (ShoppingItem item : items) {
+            if (getCheckedStatus(item.getId())) {
                 selectedItems.add(item);
             }
         }
         return selectedItems;
     }
-
 
 
     public static void setCheckedStatus(int id, boolean checked) {

@@ -12,13 +12,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
 
     ArrayList<ShoppingItem> items;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView txtTitle;
         public ImageView imageView;
         public LinearLayout linearLayout;
@@ -34,6 +33,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
         }
     }
+
     @NonNull
     @Override
     public RecycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -42,20 +42,29 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecycleAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecycleAdapter.MyViewHolder myViewHolder, int i) {
 
         final ShoppingItem currentItem = items.get(i);
 
         myViewHolder.txtTitle.setText(currentItem.getName());
         myViewHolder.imageView.setImageResource(currentItem.getImage());
         myViewHolder.aSwitch.setChecked(ShoppingList.getCheckedStatus(i));
-        myViewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myViewHolder.linearLayout.setBackgroundResource(R.color.colorPrimary);
+            }
+        });
+       /* myViewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 ShoppingList.setCheckedStatus(currentItem.getId(), isChecked);
+                if (isChecked){
+                    myViewHolder.txtTitle.setBackgroundResource(R.color.colorPrimary);
+                }
 
             }
-        });
+        });*/
         /*myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
