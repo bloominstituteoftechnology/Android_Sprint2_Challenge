@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
+
+    private Context context;
 
     ArrayList<ShoppingItem> items;
 
@@ -37,40 +40,44 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     @NonNull
     @Override
     public RecycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_activity, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecycleAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecycleAdapter.MyViewHolder myViewHolder, final int i) {
 
         final ShoppingItem currentItem = items.get(i);
 
         myViewHolder.txtTitle.setText(currentItem.getName());
         myViewHolder.imageView.setImageResource(currentItem.getImage());
-        myViewHolder.aSwitch.setChecked(ShoppingList.getCheckedStatus(i));
-        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myViewHolder.linearLayout.setBackgroundResource(R.color.colorPrimary);
-            }
-        });
-       /* myViewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        myViewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 ShoppingList.setCheckedStatus(currentItem.getId(), isChecked);
-                if (isChecked){
-                    myViewHolder.txtTitle.setBackgroundResource(R.color.colorPrimary);
-                }
-
             }
-        });*/
-        /*myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        });
+        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShoppingList.setCheckedStatus(currentItem.getId(), isChecked);
+                Boolean bool = ShoppingList.getCheckedStatus(currentItem.getId());
+                if (bool){
+                    myViewHolder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                    myViewHolder.aSwitch.setChecked(false);
+                    ShoppingList.setCheckedStatus(currentItem.getId(), false);
+
+                    
+                }else {
+                    myViewHolder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+                    myViewHolder.aSwitch.setChecked(true);
+                    ShoppingList.setCheckedStatus(currentItem.getId(), true);
+
+
+
+                }
             }
-        });*/
+        });
     }
 
     public RecycleAdapter(ArrayList<ShoppingItem> items) {
