@@ -30,35 +30,6 @@ public class MainActivity extends AppCompatActivity {
     Context context;
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            String channelId = getPackageName();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                CharSequence name = "Channel";
-                String description = "Notifications";
-                int tag = NotificationManager.IMPORTANCE_HIGH;
-                NotificationChannel channel = new NotificationChannel(channelId, name, tag);
-                channel.setDescription(description);
-
-                notificationManager.createNotificationChannel(channel);
-            }
-
-            NotificationCompat.Builder builder = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                builder = new NotificationCompat.Builder(context, channelId)
-                        .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                        .setContentTitle("Shopping List")
-                        .setContentText("Shopping list.")
-                        .setColor(context.getColor(R.color.colorPrimary))
-                        .setSmallIcon(android.R.drawable.ic_dialog_alert);
-            }
-            assert builder != null;
-            notificationManager.notify(1, builder.build());
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -71,18 +42,36 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strList = "";
-                items = ShoppingList.getSelectedItems();
 
-                for (int i = 0; i < items.size(); i++) {
-                    strList += items.get(i).toString();
-                }
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, ShoppingList.getSelectedItems().toString());
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, strList);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivity(intent);
 
-                Log.i(TAG, "CHRLES " + items.size());
+                String channelId = getPackageName();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CharSequence name = "Channel";
+                    String description = "Notifications";
+                    int tag = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel channel = new NotificationChannel(channelId, name, tag);
+                    channel.setDescription(description);
+
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                NotificationCompat.Builder builder = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    builder = new NotificationCompat.Builder(context, channelId)
+                            .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                            .setContentTitle("Shopping List")
+                            .setContentText("Shopping list.")
+                            .setColor(context.getColor(R.color.colorPrimary))
+                            .setSmallIcon(android.R.drawable.ic_dialog_alert);
+                }
+                assert builder != null;
+                notificationManager.notify(1, builder.build());
+
             }
         });
 
