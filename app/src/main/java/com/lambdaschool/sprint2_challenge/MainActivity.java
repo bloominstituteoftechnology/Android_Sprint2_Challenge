@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String shareBodyText = "Shopping list";
-                intent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
+                intent.putExtra(Intent.EXTRA_TEXT, ShoppingListFactory.getSelectedItems());
                 startActivity(Intent.createChooser(intent, "Pick sharing method"));
             }
         });

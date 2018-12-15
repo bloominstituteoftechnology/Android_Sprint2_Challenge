@@ -50,7 +50,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final ShoppingList data = dataList.get(i);
 
 
@@ -62,18 +62,24 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             public void onClick(View v) {
                  if(data.isChecked()){
                      data.setChecked(false);
+//                     ShoppingListFactory.removeFromSelected(data.getId());
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
-                     Intent intent = new Intent(context, ShoppingList.class);
+//                     Intent intent = new Intent(context, ShoppingList.class);
+//                     System.out.println("the id is" +  data.getId());
                  } else {
                      data.setChecked(true);
+//                     ShoppingListFactory.addToSelectedList(data.getId());
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                  }
+//                 notifyItemChanged(viewHolder.getAdapterPosition());
             }
         });
 
         if(data.isChecked()) {
+//            ShoppingListFactory.addToSelectedList(data.getId());
             viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
         } else {
+//            ShoppingListFactory.removeFromSelected(data.getId());
             viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
         }
 

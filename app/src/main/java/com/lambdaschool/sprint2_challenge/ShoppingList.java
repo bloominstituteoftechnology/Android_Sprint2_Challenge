@@ -4,14 +4,15 @@ package com.lambdaschool.sprint2_challenge;
 
 public class ShoppingList{
     private String grocery_name;
-    private int grocery_icon;
+    private int id, grocery_icon;
     private boolean isChecked;
 
 
-    public ShoppingList(String grocery_name, int grocery_icon){
+    public ShoppingList(String grocery_name, int grocery_icon, int id){
 
         this.grocery_name = grocery_name;
         this.grocery_icon = grocery_icon;
+        this.id = id;
     }
 
     public ShoppingList(String csvString) {
@@ -35,6 +36,14 @@ public class ShoppingList{
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String toCsvString() {
