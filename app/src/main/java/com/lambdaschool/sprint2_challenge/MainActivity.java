@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences preferences;
 
     ArrayList<ShoppingList> shoppingList;
+    ArrayList<ShoppingList> newList;
     private Context         context;
     private Activity        activity;
 

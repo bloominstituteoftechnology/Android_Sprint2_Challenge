@@ -1,8 +1,9 @@
 package com.lambdaschool.sprint2_challenge;
 
 
+import java.io.Serializable;
 
-public class ShoppingList{
+public class ShoppingList implements Serializable {
     private String grocery_name;
     private int id, grocery_icon;
     private boolean isChecked;

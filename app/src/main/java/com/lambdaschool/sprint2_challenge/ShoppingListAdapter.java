@@ -1,10 +1,8 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +29,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         }
 
     }
-
 
     private ArrayList<ShoppingList> dataList;
     private Context                 context;
@@ -62,13 +59,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             public void onClick(View v) {
                  if(data.isChecked()){
                      data.setChecked(false);
-//                     ShoppingListFactory.removeFromSelected(data.getId());
+//                     SharedPrefsDao.removeId(data.getId());
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+
 //                     Intent intent = new Intent(context, ShoppingList.class);
 //                     System.out.println("the id is" +  data.getId());
                  } else {
                      data.setChecked(true);
-//                     ShoppingListFactory.addToSelectedList(data.getId());
+//                     SharedPrefsDao.addId(data.getId());
                      viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                  }
 //                 notifyItemChanged(viewHolder.getAdapterPosition());
@@ -76,12 +74,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         });
 
         if(data.isChecked()) {
-//            ShoppingListFactory.addToSelectedList(data.getId());
+            data.setChecked(true);
             viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
         } else {
-//            ShoppingListFactory.removeFromSelected(data.getId());
+            data.setChecked(false);
             viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
         }
+
 
     }
 

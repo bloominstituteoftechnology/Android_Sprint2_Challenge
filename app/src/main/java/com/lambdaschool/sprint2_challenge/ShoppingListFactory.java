@@ -21,11 +21,24 @@ public class ShoppingListFactory {
     public static ArrayList<ShoppingList> getSelectedItems() {
         ArrayList<ShoppingList> groceries = getGroceryDataList();
         ArrayList<ShoppingList> selectedItems = new ArrayList<>();
+        for (ShoppingList shoppingList : groceries) {
+            if (shoppingList.isChecked()) {
+                selectedItems.add(shoppingList);
+            }
+        }
+        return selectedItems;
+    }
+
+    public static String[] getSelectedItemsArray(){
+        ArrayList<ShoppingList> groceries = getGroceryDataList();
+        ArrayList<ShoppingList> selectedItems = new ArrayList<>();
         for (ShoppingList grocery : groceries) {
             if (grocery.isChecked()) {
                 selectedItems.add(grocery);
             }
         }
-        return selectedItems;
+        String[] stringArray;
+        stringArray = selectedItems.toArray(new String[0]);
+        return stringArray;
     }
 }
