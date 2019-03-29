@@ -6,6 +6,14 @@
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
+    <Button
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:id="@+id/button_export_list"
+        android:text="EXPORT LIST"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
@@ -13,6 +21,7 @@
         android:text="Hello World!"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/button_export_list" />
+
 
 </android.support.constraint.ConstraintLayout>

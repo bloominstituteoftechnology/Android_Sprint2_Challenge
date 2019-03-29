@@ -35,12 +35,14 @@ public class CartRepo {
     }
 
     public String getCart(ArrayList<ShoppingItem> itemList) {
-        String cartString = "";
+        StringBuilder builder = new StringBuilder();
+        builder.append("My Shopping List: ");
         for (ShoppingItem shoppingItem: itemList) {
             if (prefs.contains(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index)) {
-                cartString.concat(shoppingItem.name + " ");
+                builder.append((shoppingItem.name + ", "));
             }
         }
-        return cartString;
+        builder.deleteCharAt(builder.length() - 2); //deletes last comma
+        return builder.toString();
     }
 }
