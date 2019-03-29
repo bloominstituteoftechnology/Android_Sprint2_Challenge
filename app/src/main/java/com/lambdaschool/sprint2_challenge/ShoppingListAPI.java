@@ -9,14 +9,14 @@ public class ShoppingListAPI {
 
     public static ArrayList<ShoppingListModel> getAllItems() {
         if(dataSet == null) {
-            populateShoppingData();
+            populateShoppingListData();
         }
         return dataSet;
     }
 
     public static ShoppingDataModel getByItemName(String itemName) {
         if(dataSet == null) {
-            populateShoppingData();
+            populateShoppingListData();
         }
         for(ShoppingDataModel model: dataSet) {
             if(model.getItemName()).equals(itemName()) {
@@ -26,7 +26,7 @@ public class ShoppingListAPI {
         return null;
     }
 
-    private static void populateShoppingData() {
+    private static void populateShoppingListData() {
         dataSet = new ArrayList<>(200);
 
         parseRawData(dataSet, ITEM_NAMES_RAW[]);
