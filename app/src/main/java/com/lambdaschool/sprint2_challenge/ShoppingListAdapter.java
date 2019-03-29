@@ -42,7 +42,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (ShoppingListRepository.containsItem(id)) {
+                    ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
+                    holder.itemSwitch.toggle();
+                } else if (!ShoppingListRepository.containsItem(id)) {
+                    ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
+                }
             }
         });
     }
