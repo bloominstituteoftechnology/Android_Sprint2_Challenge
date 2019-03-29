@@ -29,7 +29,7 @@ public class ShoppingListAPI {
     private static void populateShoppingListData() {
         dataSet = new ArrayList<>(200);
 
-        parseRawData(dataSet, ITEM_NAMES_RAW[]);
+        parseRawData(dataSet, ITEM_NAMES_RAW[0]);
 
     }
 
