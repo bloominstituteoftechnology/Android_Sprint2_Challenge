@@ -23,11 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private ShoppingListAdapter listAdapter;
     private ArrayList<ShoppingItem> itemList;
     public static SharedPreferences preferences;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = this;
 
         preferences = getSharedPreferences(Constants.PACKAGE, Context.MODE_PRIVATE);
 
@@ -42,6 +45,25 @@ public class MainActivity extends AppCompatActivity {
                 sendListIntent.putExtra(Intent.EXTRA_TEXT, selectedItemsToString(ShoppingList.getSelectedItems()));
                 sendListIntent.setType("text/plain");
                 startActivity(sendListIntent);
+
+                String channelId = getPackageName();
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    CharSequence name = "Channel";
+                    String description = "Sent shopping list";
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+                    channel.setDescription(description);
+                    notificationManager.createNotificationChannel(channel);
+                }
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+                        .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+                        .setSmallIcon(R.drawable.ic_android_green_24dp)
+                        .setContentTitle(getString(R.string.order_placed))
+                        .setContentText(getString(R.string.shopping_order))
+                        .setColor(getResources().getColor(R.color.colorAccent))
+                        .setDefaults(NotificationCompat.DEFAULT_ALL);
+                notificationManager.notify(Constants.NOTIFICATION_ID, builder.build());
             }
         });
 

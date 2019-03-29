@@ -40,13 +40,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         shoppingListViewHolder.itemImage.setImageDrawable(context.getDrawable(item.getItemImageId()));
         shoppingListViewHolder.itemName.setText(item.getItemName());
 
-        /*shoppingListViewHolder.itemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                item.setChecked(isChecked);
-            }
-        });*/
-
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,10 +47,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.white));
                     item.setChecked(false);
+
                 }else {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.colorAccent));
                     item.setChecked(true);
+
                 }
             }
         });
