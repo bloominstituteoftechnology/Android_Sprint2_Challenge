@@ -30,9 +30,15 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListAdapter.ViewHolder vh, int i) {
+    public void onBindViewHolder(@NonNull final ListAdapter.ViewHolder vh, int i) {
         vh.imageView.setImageResource(itemList.get(i).image);
         vh.textView.setText(itemList.get(i).name);
+        vh.parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vh.aSwitch.toggle();
+            }
+        });
     }
 
     @Override

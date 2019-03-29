@@ -16,6 +16,12 @@ public class ShoppingItem {
         this.image = Integer.parseInt(temp[2]);
         this.index = Integer.parseInt(temp[3]);
     }
+    public String toCsvString(){
+        return String.format("%s,%d,%d",
+                this.name,
+                this.image,
+                this.index);
+    }
 
     public String getName() {
         return name;
