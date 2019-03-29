@@ -4,13 +4,15 @@ import android.graphics.drawable.Drawable;
 
 public class ShoppingItem {
 
-    public ShoppingItem(Drawable iconDrawable, String name) {
+    public ShoppingItem(Drawable iconDrawable, String name, int id) {
         this.iconDrawable = iconDrawable;
         this.name = name;
+        this.id = id;
     }
 
     private Drawable iconDrawable;
     private String name;
+    private int id;
     private boolean isSelected;
 
     public Drawable getIconDrawable() {
@@ -19,6 +21,10 @@ public class ShoppingItem {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public boolean isSelected() {
