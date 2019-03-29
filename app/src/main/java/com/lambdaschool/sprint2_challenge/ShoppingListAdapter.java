@@ -36,6 +36,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         ShoppingItem shoppingItem = shoppingItems.get(holder.getAdapterPosition());
         holder.shoppingItemName.setText(shoppingItem.getItemName());
         holder.shoppingItemImage.setImageResource(shoppingItem.getImageId());
+
+        holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
