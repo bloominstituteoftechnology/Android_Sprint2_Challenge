@@ -11,6 +11,7 @@ public class ShoppingItem {
         this.itemName = itemName;
         this.itemImageId = itemImageId;
         this.itemId = itemId;
+        this.isChecked = false;
     }
 
     public String getItemName() {

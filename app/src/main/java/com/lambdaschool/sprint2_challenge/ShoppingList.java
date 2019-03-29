@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class ShoppingList {
 
+    private static ArrayList<ShoppingItem> selectedItems;
 
     public static ArrayList<ShoppingItem> getItemList() {
         ArrayList<ShoppingItem> itemList = new ArrayList<>(ShoppingItemConstants.ITEM_NAMES_RAW.length);
@@ -19,5 +20,18 @@ public class ShoppingList {
         }
         return itemList;
     }
+
+    public static ArrayList<ShoppingItem> getSelectedItems() {
+        ArrayList<ShoppingItem> items = getItemList();
+        selectedItems = new ArrayList<>();
+        for (ShoppingItem item : items) {
+            if (item.isChecked()) {
+                selectedItems.add(item);
+            }
+        }
+        return selectedItems;
+    }
+
+
 
 }

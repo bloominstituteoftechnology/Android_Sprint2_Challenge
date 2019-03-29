@@ -15,11 +15,16 @@
             android:layout_width="65dp"
             android:layout_height="match_parent" />
 
-        <Switch
-            android:id="@+id/item_switch"
+        <TextView
+            android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp" />
+
+        <Switch
+            android:id="@+id/item_switch"
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -37,25 +38,30 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final ShoppingItem item = itemList.get(i);
 
         shoppingListViewHolder.itemImage.setImageDrawable(context.getDrawable(item.getItemImageId()));
-        shoppingListViewHolder.itemSwitch.setText(item.getItemName());
+        shoppingListViewHolder.itemName.setText(item.getItemName());
 
-        shoppingListViewHolder.itemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*shoppingListViewHolder.itemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //Set item to checked
-                shoppingItem.setChecked(isChecked);
+                item.setChecked(isChecked);
             }
-        });
+        });*/
 
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO way to change background color when item is selected
-                if(shoppingItem.isChecked()) {
-                    
+                if(item.isChecked()) {
+                    shoppingListViewHolder.parentLayout.setBackgroundColor(
+                            context.getResources().getColor(R.color.white));
+                    item.setChecked(false);
+                }else {
+                    shoppingListViewHolder.parentLayout.setBackgroundColor(
+                            context.getResources().getColor(R.color.colorAccent));
+                    item.setChecked(true);
                 }
             }
         });
+
     }
 
     @Override
@@ -64,9 +70,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     class ShoppingListViewHolder extends RecyclerView.ViewHolder {
-
         View parentLayout;
         ImageView itemImage;
+        TextView itemName;
         Switch itemSwitch;
 
         public ShoppingListViewHolder(@NonNull View itemView) {
@@ -74,6 +80,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
             parentLayout = itemView.findViewById(R.id.parent_layout);
             itemImage = itemView.findViewById(R.id.item_image);
+            itemName = itemView.findViewById(R.id.item_name);
             itemSwitch = itemView.findViewById(R.id.item_switch);
         }
     }
