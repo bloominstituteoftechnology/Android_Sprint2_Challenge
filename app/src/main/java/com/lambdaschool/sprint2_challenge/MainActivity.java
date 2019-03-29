@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         editor = prefs.edit();
         context = this;
 
-        clearPrefs();
+       //clearPrefs();
 
         ItemDao dao = new ItemDao();
+        ItemDao.setCheckedFlag();
         ItemDao.updateSelected();
         initRecyclerView();
-
 
                 sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         ItemDao.updateSelected();
+        ItemDao.saveSelectedItems();
     }
 
     public static void clearPrefs(){

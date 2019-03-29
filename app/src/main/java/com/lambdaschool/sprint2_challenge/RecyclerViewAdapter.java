@@ -39,22 +39,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder,final int pos) {
         holder.itemIcon.setImageResource(items.get(pos).getImageID());
         holder.itemName.setText(items.get(pos).getName());
-        if(items.get(pos).isSelected()){
+
+/*        if(items.get(pos).isSelected()){
             holder.backgroundImage.setImageResource(R.color.colorPrimary);
             items.get(pos).setSelected(true);
         } else{
             holder.backgroundImage.setImageResource(R.color.colorAccent);
-        }
+        }*/
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(items.get(pos).isSelected() == true){
                     items.get(pos).setSelected(false);
-                    holder.backgroundImage.setImageResource(R.color.colorPrimaryDark);
                 }else {
                     items.get(pos).setSelected(true);
-                    holder.backgroundImage.setImageResource(R.color.colorPrimary);
                 }
                 ItemDao.updateSelected();
                 ItemDao.saveSelectedItems();
@@ -78,8 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             itemName = itemView.findViewById(R.id.item_name_view);
             itemIcon = itemView.findViewById(R.id.item_icon_view);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
-            backgroundImage = itemView.findViewById(R.id.background_view);
+            parentLayout = itemView.findViewById(R.id.list_parent);
         }
     }
 }

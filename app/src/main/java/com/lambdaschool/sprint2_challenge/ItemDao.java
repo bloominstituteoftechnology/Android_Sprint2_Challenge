@@ -31,9 +31,7 @@ public class ItemDao {
 
         if(loadSelectedItemsFromCsv() != null){
             selectedItems = loadSelectedItemsFromCsv();
-            MainActivity.editor.putString("selected_items","");
-            MainActivity.editor.putInt("selected_items_size", 0);
-            MainActivity.editor.apply();
+            setCheckedFlag();
         }
 
         for(int i = 0; i < iconNames.length-1; i++){
@@ -71,13 +69,31 @@ public class ItemDao {
     }
 
     public static void updateSelected(){
+        selectedItems.clear();
         for(int i = 0; i < items.size()-1; i++){
             if(items.get(i).isSelected){
                 selectedItems.add(items.get(i));
-                items.get(i).setSelected(false);
+            }
+        }
+        saveSelectedItems();
+    }
+
+    public static void setCheckedFlag(){
+
+        for(int k = 0; k < items.size(); k++){
+            items.get(k).setSelected(false);
+        }
+
+        for(int i = 0; i<selectedItems.size(); i++){
+            for(int j = 0; j < items.size(); j++){
+                if(items.get(j).getId() == selectedItems.get(i).getId()){
+                    items.get(j).setSelected(true);
+                }
             }
         }
     }
+
+
 
     public static void saveSelectedItems(){
         MainActivity.clearPrefs();
@@ -92,13 +108,9 @@ public class ItemDao {
         for(int i = 0; i < items.size()-1; i++){
             csvString += (Integer.toString(items.get(i).getId()) + ',');
             csvString += (Integer.toString(items.get(i).getImageID())+ ',');
-            //if(i == items.size()-1){
-           //     csvString += (items.get(i).getName());
-            //}
-            //else{
+
                 csvString += (items.get(i).getName() + ',');
-           // }
-        }
+    }
         return csvString;
     }
 
