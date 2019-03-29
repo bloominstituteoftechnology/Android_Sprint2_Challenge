@@ -17,7 +17,10 @@ public class ItemDao {
             items.add(new Item(i,iconNames[i],iconIDs[i]));
         }
         ItemRepo.setItems(items);
+    }
 
+    public Item getItem(int id){
+        return ItemRepo.getItem(id);
     }
 
 }
