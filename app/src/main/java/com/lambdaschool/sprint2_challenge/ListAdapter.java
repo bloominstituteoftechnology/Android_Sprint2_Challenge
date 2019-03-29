@@ -31,12 +31,20 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ListAdapter.ViewHolder vh, int i) {
+        final CartRepo cartRepo = new CartRepo(vh.context);
+        vh.aSwitch.setChecked(cartRepo.isInCart(itemList.get(i)));
         vh.imageView.setImageResource(itemList.get(i).image);
         vh.textView.setText(itemList.get(i).name);
         vh.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vh.aSwitch.toggle();
+                if (cartRepo.isInCart(itemList.get(vh.getAdapterPosition()))) {
+                    cartRepo.removeItemFromCart(itemList.get(vh.getAdapterPosition()));
+                    vh.aSwitch.setChecked(false);
+                } else {
+                    cartRepo.addItemToCart(itemList.get(vh.getAdapterPosition()));
+                    vh.aSwitch.setChecked(true);
+                }
             }
         });
     }
