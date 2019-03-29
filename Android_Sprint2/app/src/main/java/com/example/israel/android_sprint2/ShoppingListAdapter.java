@@ -33,15 +33,33 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         // set the views' data from the item list
-        ShoppingItem shoppingItem = shoppingItems.get(i);
+        final ShoppingItem shoppingItem = shoppingItems.get(i);
         viewHolder.iconImageView.setImageDrawable(shoppingItem.getIconDrawable());
         viewHolder.nameTextView.setText(shoppingItem.getName());
+
+        if (SelectedShoppingItemsSPDAO.isShoppingItemSelected(shoppingItem)) { // is it selected
+            int selectedColor = context.getResources().getColor(R.color.shopping_item_selected);
+            viewHolder.itemView.setBackgroundColor(selectedColor);
+        } else {
+            int unselectedColor = context.getResources().getColor(R.color.shopping_item_unselected);
+            viewHolder.itemView.setBackgroundColor(unselectedColor);
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO when this item is selected
+                if (SelectedShoppingItemsSPDAO.isShoppingItemSelected(shoppingItem)) {
+                    // remove
+                    SelectedShoppingItemsSPDAO.removeSelectedShoppingItem(shoppingItem);
+                } else {
+                    // add
+                    SelectedShoppingItemsSPDAO.addSelectedShoppingItem(shoppingItem);
+                }
+
+                // TODO update/sort array and notify this
+                notifyDataSetChanged(); // this will also change the color of the selected item
             }
+
         });
 
     }

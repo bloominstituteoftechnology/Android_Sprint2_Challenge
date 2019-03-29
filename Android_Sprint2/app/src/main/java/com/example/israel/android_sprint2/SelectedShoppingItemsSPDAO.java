@@ -17,6 +17,7 @@ public class SelectedShoppingItemsSPDAO {
      * Initialize sharedPreference
      * */
     public static void init(Context context) {
+        // TODO should i use default sp instead?
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences(KEY_SP_SELECTED_SHOPPING_ITEMS, Context.MODE_PRIVATE);
         }
@@ -32,6 +33,17 @@ public class SelectedShoppingItemsSPDAO {
         return idSet;
     }
 
+    public static boolean isShoppingItemSelected(ShoppingItem shoppingItem) {
+        Set<String> idSet = getSelectedShoppingItemIds();
+        for (String id : idSet) {
+            if (id.equals(shoppingItem.getId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void addSelectedShoppingItem(ShoppingItem shoppingItem) {
         Set<String> idSet = sharedPreferences.getStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, null);
         if (idSet == null) { // value at key is uninitialized
@@ -44,14 +56,20 @@ public class SelectedShoppingItemsSPDAO {
         sharedPreferences.edit().putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet).apply();
     }
 
-    public static boolean isShoppingItemSelected(ShoppingItem shoppingItem) {
-        Set<String> idSet = getSelectedShoppingItemIds();
+    public static void removeSelectedShoppingItem(ShoppingItem shoppingItem) {
+        Set<String> idSet = sharedPreferences.getStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, null);
+        if (idSet == null) { // nothing to remove
+            return;
+        }
+
+        // find and remove
         for (String id : idSet) {
             if (id.equals(shoppingItem.getId())) {
-                return true;
+                idSet.remove(id);
+                break;
             }
         }
 
-        return false;
+        sharedPreferences.edit().putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet).apply();
     }
 }
