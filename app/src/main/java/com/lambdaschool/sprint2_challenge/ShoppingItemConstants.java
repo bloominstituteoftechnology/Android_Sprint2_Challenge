@@ -1,6 +1,10 @@
 package com.lambdaschool.sprint2_challenge;
 
 public class ShoppingItemConstants {
+
+    public static ArrayList<>
+
+
     public static final int[] ICON_IDS = new int[]{
             R.drawable.almond,
             R.drawable.apple_green,
