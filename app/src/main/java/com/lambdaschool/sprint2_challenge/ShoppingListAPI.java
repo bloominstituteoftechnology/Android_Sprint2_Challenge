@@ -14,11 +14,11 @@ public class ShoppingListAPI {
         return dataSet;
     }
 
-    public static ShoppingDataModel getByItemName(String itemName) {
+    public static ShoppingListModel getByItemName(String itemName) {
         if(dataSet == null) {
             populateShoppingListData();
         }
-        for(ShoppingDataModel model: dataSet) {
+        for(ShoppingListModel model: dataSet) {
             if(model.getItemName()).equals(itemName()) {
                 return model;
             }
