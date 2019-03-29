@@ -1,13 +1,46 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
+
+    ArrayList<ShoppingItem> shoppingItems;
+    Context context;
+
+    public ShoppingListAdapter (ArrayList<ShoppingItem> shoppingItems) {
+        this.shoppingItems = shoppingItems;
+    }
+
+    @NonNull
+    @Override
+    public ShoppingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        context = parent.getContext();
+        View itemView = LayoutInflater.from(context).inflate(R.layout.shopping_item_layout, parent, false);
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ShoppingListAdapter.ViewHolder holder, int position) {
+        ShoppingItem shoppingItem = shoppingItems.get(holder.getAdapterPosition());
+        holder.shoppingItemName.setText(shoppingItem.getItemName());
+        holder.shoppingItemImage.setImageResource(shoppingItem.getImageId());
+    }
+
+    @Override
+    public int getItemCount() {
+        return shoppingItems.size();
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
