@@ -10,7 +10,7 @@ public ShoppingItem(String name, int image, int id,Boolean selected){
     this.name = name;
     this.image = image;
     this.id = id;
-    selected = false;
+    this.selected = false;
 }
 public ShoppingItem(String csvString){
     String[] values = csvString.split(",");
@@ -25,7 +25,7 @@ public Boolean getSelected(){
 }
 
 public String toCsvString(){
-    return this.name + "," + this.image + "," +this.id + "," +this.selected;
+    return this.name + "," + this.image + "," +this.id + "," +this.selected.toString();
 }
 public String getName(){
     return name;

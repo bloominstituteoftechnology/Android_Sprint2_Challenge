@@ -58,7 +58,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
         myViewHolder.txtTitle.setText(currentItem.getName());
         myViewHolder.imageView.setImageResource(currentItem.getImage());
-        if(currentItem.getSelected() != null){myViewHolder.aSwitch.setChecked(currentItem.getSelected());}
+        boolean isOrdered = MainActivity.preferences.getBoolean(Constants.ID_LIST_KEY + i,false);
+        myViewHolder.aSwitch.setChecked(isOrdered);
         myViewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -89,7 +90,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     public RecycleAdapter(ArrayList<ShoppingItem> items) {
 
-//        this.items = items;
+        this.items = items;
     }
 
     @Override

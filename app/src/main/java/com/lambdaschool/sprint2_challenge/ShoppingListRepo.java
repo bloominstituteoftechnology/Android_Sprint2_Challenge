@@ -106,10 +106,20 @@ public class ShoppingListRepo {
     }
     public static String sendSelectedItems(){
         ArrayList<ShoppingItem> sendList = getSelectedItems();
-        String selectionString = "Will you order me ";
+        String selectionString = "Will you order me :\n";
         for(ShoppingItem item: sendList){
-            selectionString = selectionString + " , " + item.getName();
+            selectionString = selectionString  + item.getName()+" , " ;
         }
      return selectionString;
     }
+    public static ShoppingItem getStoredItem(int id){
+        String idString = String.valueOf(id);
+        String itemCsv = MainActivity.preferences.getString(Constants.ENTRY_ITEM_KEY_PREFIX +idString,"invalid");
+       ShoppingItem storedItem = new ShoppingItem(itemCsv);
+       return storedItem;
+
+    }
+//    public static ArrayList<ShoppingItem> getAllStoredItems(){
+//
+//    }
 }
