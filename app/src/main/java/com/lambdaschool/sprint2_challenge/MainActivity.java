@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,5 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         shoppingListAdapter = new ShoppingListAdapter(ShoppingListRepository.getShoppingItems());
         recyclerView.setAdapter(shoppingListAdapter);
+
+        System.out.println(ShoppingListRepository.createShoppingList());
     }
+
+    public void sendList() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        String shoppingList = ShoppingListRepository.createShoppingList();
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shoppingList);
+        startActivityForResult(intent, 1);
+    }
+
+
 }

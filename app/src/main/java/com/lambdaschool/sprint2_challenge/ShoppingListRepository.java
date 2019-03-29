@@ -53,5 +53,16 @@ public class ShoppingListRepository {
         return false;
     }
 
+    public static String createShoppingList() {
+        ArrayList<ShoppingItem> items = getShoppingItems();
+        String idCsv = MainActivity.preferences.getString("id list", "");
+        String shoppingList = "Your shopping list consists of: ";
+        String[] parsedIds = idCsv.split(",");
+        for (String id : parsedIds) {
+            shoppingList += (items.get(Integer.parseInt(id)).getItemName()) + ", ";
+        }
+        return shoppingList;
+    }
+
 
 }
