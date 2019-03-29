@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-
 public class ShoppingCart {
     private static StringBuilder shoppingListCsv = new StringBuilder();
     private static SharedPreferences appStoredPrefs;

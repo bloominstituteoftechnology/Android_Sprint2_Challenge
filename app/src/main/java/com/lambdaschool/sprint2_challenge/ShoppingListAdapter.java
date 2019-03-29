@@ -57,6 +57,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final ShoppingItem item = itemList.get(i);
         viewHolder.imageView.setImageResource(item.getShoppingItemResource());
         viewHolder.textView.setText(item.getShoppingItemName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            viewHolder.parentLayout.setBackgroundColor(context.getColor(R.color.cardview_light_background));
+        else
+            viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +79,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                     viewHolder.parentLayout.setBackgroundColor(context.getColor(color));
                 else
                     viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(color));
+                //MainActivity.toggleBulkItems(viewHolder,item.getShoppingItemId());
+                ShoppingCart.setSharedPreferences();
             }
         });
     }

@@ -8,7 +8,7 @@ public class ShoppingItemFactory {
         ArrayList<ShoppingItem> shoppingItemArrayList = new ArrayList<>();
 
         for (int i = 0; i < ShoppingItemConstants.ICON_IDS.length; i++) {
-            shoppingItemArrayList.add(new ShoppingItem(i, ShoppingItemConstants.ICON_IDS[i], ShoppingItemConstants.ITEM_NAMES_RAW[i].replaceAll("_", " ")));
+            shoppingItemArrayList.add(new ShoppingItem(i, ShoppingItemConstants.ICON_IDS[i], ShoppingItemConstants.ITEM_NAMES_RAW[i].replaceAll("_", " "), false));
         }
 
         return shoppingItemArrayList;
