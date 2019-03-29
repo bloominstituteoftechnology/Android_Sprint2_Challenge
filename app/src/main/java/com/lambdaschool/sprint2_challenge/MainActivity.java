@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     Button sendButton;
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-    NotificationManager notificationManager;
 
 
     @Override
@@ -36,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
         editor = prefs.edit();
         context = this;
 
-        notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        clearPrefs();
+
         ItemDao dao = new ItemDao();
+        ItemDao.updateSelected();
         initRecyclerView();
 
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+                sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ItemDao.updateSelected();
@@ -67,29 +68,10 @@ public class MainActivity extends AppCompatActivity {
         ItemDao.updateSelected();
     }
 
-    //notification code
-/*
-    String channelId = getPackageName() + ".button";
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-        CharSequence name = "Channel Name";
-        String description = "Shopping List";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-
-        NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-        channel.setDescription(description);
-        notificationManager.createNotificationChannel(channel);
+    public static void clearPrefs(){
+        editor.putString("selected_items",  "");
+        editor.putInt("selected_items_size", 0);
+        editor.apply();
     }
 
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(v.getContext(), channelId)
-            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)//importance only affects versions 24 -> 26
-            .setContentTitle("Button")
-            .setContentText("The Button Was Pressed")
-
-            .setColor(context.getResources().getColor(R.color.colorPrimary))  //icon color in notificaton bar
-
-            .setSmallIcon(android.R.drawable.ic_dialog_alert);
-
-                notificationManager.notify(1, builder.build());   //extract notificatonID (1) as a constant (usually in a constant class)
-
-    //extract all strings as string resources*/
 }
