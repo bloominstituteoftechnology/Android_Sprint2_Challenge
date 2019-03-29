@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 ItemDao.updateSelected();
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(MainActivity.TAG, ItemDao.getHumanReadableStringFromItemArrList(ItemDao.getSelectedItems()));
+                intent.putExtra(Intent.EXTRA_TEXT, ItemDao.getHumanReadableStringFromItemArrList(ItemDao.getSelectedItems()));
+                startActivity(Intent.createChooser(intent,"send your list"));
             }
         });
 
