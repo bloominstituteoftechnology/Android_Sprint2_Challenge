@@ -53,7 +53,14 @@ public class SelectedShoppingItemsSPDAO {
         // TODO check if id is already added to prevent duplicates
 
         idSet.add(shoppingItem.getId());
-        sharedPreferences.edit().putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet).apply();
+        // @NOTE: apparently stringSet will not save when the app is closed
+        // to go around this, the set is removed first before putting in a new one on the same key
+        // https://stackoverflow.com/questions/17469583/setstring-in-android-sharedpreferences-does-not-save-on-force-close
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_SP_SELECTED_SHOPPING_ITEM_IDS);
+        editor.apply();
+        editor.putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet);
+        editor.apply();
     }
 
     public static void removeSelectedShoppingItem(ShoppingItem shoppingItem) {
@@ -70,6 +77,10 @@ public class SelectedShoppingItemsSPDAO {
             }
         }
 
-        sharedPreferences.edit().putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet).apply();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_SP_SELECTED_SHOPPING_ITEM_IDS);
+        editor.apply();
+        editor.putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet);
+        editor.apply();
     }
 }

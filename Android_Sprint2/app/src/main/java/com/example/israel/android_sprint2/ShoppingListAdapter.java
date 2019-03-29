@@ -18,6 +18,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public ShoppingListAdapter(Context context, ArrayList<ShoppingItem> shoppingItems) {
         this.context = context;
         this.shoppingItems = shoppingItems;
+
+        // initial sorting
+        resetShoppingItems();
     }
 
     Context context;
@@ -59,7 +62,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                     SelectedShoppingItemsSPDAO.addSelectedShoppingItem(shoppingItem);
                 }
 
-                // TODO update/sort array and notify this
                 resetShoppingItems();
                 notifyDataSetChanged(); // this will also change the color of the se// lected item
             }
@@ -75,7 +77,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     /** Categorize and sort items */
     private void resetShoppingItems() {
-        // TODO sort here
         // categorize items to selected and unselected
         ArrayList<ShoppingItem> selectedItems = new ArrayList<>();
         Set<String> selectedShoppingIds = SelectedShoppingItemsSPDAO.getSelectedShoppingItemIds();
