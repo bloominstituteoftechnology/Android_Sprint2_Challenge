@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     ShoppingListAdapter shoppingListAdapter;
     Button sendButton;
+    Button resetButton;
     Context context;
     static SharedPreferences preferences;
 
@@ -34,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         preferences = getSharedPreferences("Shopping Preferences", Context.MODE_PRIVATE);
-        /* SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply(); */
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -46,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
 
         shoppingListAdapter = new ShoppingListAdapter(ShoppingListRepository.getShoppingItems());
         recyclerView.setAdapter(shoppingListAdapter);
+
+        resetButton = findViewById(R.id.reset_button);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+                startActivity(getIntent());
+            }
+        });
 
         sendButton = findViewById(R.id.send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
