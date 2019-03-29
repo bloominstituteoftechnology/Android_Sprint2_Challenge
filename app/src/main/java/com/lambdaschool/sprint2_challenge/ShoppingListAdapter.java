@@ -32,10 +32,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShoppingListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ShoppingListAdapter.ViewHolder holder, int position) {
         ShoppingItem shoppingItem = shoppingItems.get(holder.getAdapterPosition());
+        final int id = shoppingItem.getItemId();
         holder.shoppingItemName.setText(shoppingItem.getItemName());
         holder.shoppingItemImage.setImageResource(shoppingItem.getImageId());
+        holder.itemSwitch.setChecked(ShoppingListRepository.containsItem(id));
 
         holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

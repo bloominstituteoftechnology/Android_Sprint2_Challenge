@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public class ShoppingListRepository {
 
-    private static ArrayList<ShoppingItem> shoppingItems = new ArrayList<>();
-
     public static ArrayList<ShoppingItem>  getShoppingItems() {
+        ArrayList<ShoppingItem> shoppingItems = new ArrayList<>();
+
         for (int i = 0; i < ShoppingItemConstants.ITEM_NAMES_RAW.length - 1; i++) {
             ShoppingItem item = new ShoppingItem(
                     ShoppingItemConstants.ITEM_NAMES_RAW[i]
@@ -23,13 +23,18 @@ public class ShoppingListRepository {
     public static String getAllIds() {
         return MainActivity.preferences.getString("id list", "");
     }
-    public static void addItem(int index) {
+    public static void updateItem(int index, boolean checked) {
         SharedPreferences.Editor editor = MainActivity.preferences.edit();
         String idCsv = getAllIds();
         String[] parsedIds = idCsv.split(",");
         ArrayList<String> idList = new ArrayList<>(parsedIds.length);
+        if (idCsv != null)
         idList.addAll(Arrays.asList(parsedIds));
-        idList.add(Integer.toString(index));
+        if (checked) {
+            idList.remove((Integer.toString(index)));
+        } else if (!checked) {
+            idList.add(Integer.toString(index));
+        }
         StringBuilder ids = new StringBuilder();
         for (String id : idList)
             ids.append(id).append(",");
