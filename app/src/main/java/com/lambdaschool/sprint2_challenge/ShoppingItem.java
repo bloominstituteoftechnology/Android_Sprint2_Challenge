@@ -6,13 +6,15 @@ import android.graphics.drawable.Drawable;
 public class ShoppingItem {
 
     private String name;
-    private Drawable image;
+    private int image;
     private int id;
+    private Boolean isSelected;
 
     public ShoppingItem(String name, int image, int id) {
         this.name = name;
-        this.image = MainActivity.context.getResources().getDrawable(image);
+        this.image = image;
         this.id = id;
+        this.isSelected = false;
     }
 
     public String getName() {
@@ -23,11 +25,11 @@ public class ShoppingItem {
         this.name = name;
     }
 
-    public Drawable getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(Drawable image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
@@ -37,5 +39,13 @@ public class ShoppingItem {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
     }
 }
