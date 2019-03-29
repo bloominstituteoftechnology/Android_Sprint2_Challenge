@@ -1,6 +1,9 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShoppingListRepository {
 
@@ -14,6 +17,20 @@ public class ShoppingListRepository {
             shoppingItems.add(item);
         }
         return shoppingItems;
+    }
+
+    public static void addItem(int index) {
+        SharedPreferences.Editor editor = MainActivity.preferences.edit();
+        String idCsv = MainActivity.preferences.getString("id list", "");
+        String[] idArray = idCsv.split(",");
+        ArrayList<String> idList = new ArrayList<>(idArray.length);
+        idList.addAll(Arrays.asList(idArray));
+        idList.add(Integer.toString(index));
+        StringBuilder ids = new StringBuilder();
+        for (String id : idList)
+            ids.append(id).append(",");
+        editor.putString("id list", ids.toString());
+        editor.apply();
     }
 
 
