@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
@@ -15,6 +16,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     private ArrayList<ShoppingItem> itemList;
     private Context context;
+    private ShoppingItem shoppingItem;
 
     public ShoppingListAdapter(ArrayList<ShoppingItem> itemList) {
         this.itemList = itemList;
@@ -31,16 +33,27 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShoppingListViewHolder shoppingListViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ShoppingListViewHolder shoppingListViewHolder, int i) {
         final ShoppingItem item = itemList.get(i);
 
         shoppingListViewHolder.itemImage.setImageDrawable(context.getDrawable(item.getItemImageId()));
         shoppingListViewHolder.itemSwitch.setText(item.getItemName());
 
+        shoppingListViewHolder.itemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //Set item to checked
+                shoppingItem.setChecked(isChecked);
+            }
+        });
+
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO way to change background color when clicked
+                //TODO way to change background color when item is selected
+                if(shoppingItem.isChecked()) {
+                    
+                }
             }
         });
     }

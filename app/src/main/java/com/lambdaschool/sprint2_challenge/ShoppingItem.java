@@ -5,6 +5,7 @@ public class ShoppingItem {
     private String itemName;
     private int itemId;
     private int itemImageId;
+    private boolean isChecked;
 
     public ShoppingItem(String itemName, int itemImageId, int itemId) {
         this.itemName = itemName;
@@ -34,5 +35,13 @@ public class ShoppingItem {
 
     public void setItemImageId(int itemImageId) {
         this.itemImageId = itemImageId;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }
