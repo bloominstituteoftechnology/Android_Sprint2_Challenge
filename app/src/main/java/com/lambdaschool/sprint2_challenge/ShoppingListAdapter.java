@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -38,6 +39,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         this.itemList = itemList;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -47,14 +49,28 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         ShoppingItem item = itemList.get(i);
         viewHolder.imageView.setImageResource(item.getShoppingItemResource());
         viewHolder.textView.setText(item.getShoppingItemName());
-/*        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
-            viewHolder.parentLayout.setBackgroundColor(context.getColor(R.color.colorPrimary));
-        else
-            viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));*/
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int color;
+                if (ShoppingCart.isItemInTheShoppingCart(Integer.toString(i))) {
+                    ShoppingCart.removeItemFromShoppingCart(Integer.toString(i));
+                    color = R.color.colorPrimary;
+                } else {
+                    ShoppingCart.addItemToShoppingCart(Integer.toString(i));
+                    color = R.color.colorAccent;
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    viewHolder.parentLayout.setBackgroundColor(context.getColor(color));
+                else
+                    viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(color));
+            }
+        });
     }
 
     @Override

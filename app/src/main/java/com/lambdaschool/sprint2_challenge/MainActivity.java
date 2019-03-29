@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shoppingListAdapter);
-        recyclerView.setHasFixedSize(false);
+        recyclerView.setHasFixedSize(true);
+        //shoppingListAdapter.notifyDataSetChanged();
     }
 }
