@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         preferences = getSharedPreferences("Shopping Preferences", Context.MODE_PRIVATE);
+        /* SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply(); */
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "SL Channel";
+            CharSequence name = "Shopping Channel";
             String description = "This channel is used to share shopping lists";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(getPackageName(), name, importance);
@@ -68,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, getPackageName())
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                .setContentTitle("Shopping")
-                .setContentText("Shopping List Sent!")
+                .setContentTitle("Shopping List")
+                .setContentText("Your shopping list is being sent!")
                 .setColor(getResources().getColor(R.color.colorPrimary))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setDefaults(Notification.DEFAULT_ALL);

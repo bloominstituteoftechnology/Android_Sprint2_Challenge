@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ShoppingListRepository {
+    static Context context;
 
     public static ArrayList<ShoppingItem>  getShoppingItems() {
         ArrayList<ShoppingItem> shoppingItems = new ArrayList<>();
@@ -56,12 +58,21 @@ public class ShoppingListRepository {
     public static String createShoppingList() {
         ArrayList<ShoppingItem> items = getShoppingItems();
         String idCsv = MainActivity.preferences.getString("id list", "");
-        String shoppingList = "Your shopping list consists of: ";
         String[] parsedIds = idCsv.split(",");
-        for (String id : parsedIds) {
-            shoppingList += (items.get(Integer.parseInt(id)).getItemName()) + ", ";
+        String shoppingIntro = "My shopping list has the following items: ";
+        StringBuilder builder = new StringBuilder();
+        if(parsedIds[0].equals("")) {
+            for (int i = 1; i < parsedIds.length; i++){
+                String itemName = items.get(Integer.parseInt(parsedIds[i])).getItemName();
+                builder.append(itemName).append(",");
+            }
+        } else {
+            for (String id : parsedIds) {
+                String itemName = items.get(Integer.parseInt(id)).getItemName();
+                builder.append(itemName).append(",");
+            }
         }
-        return shoppingList;
+        return shoppingIntro + builder.toString();
     }
 
 
