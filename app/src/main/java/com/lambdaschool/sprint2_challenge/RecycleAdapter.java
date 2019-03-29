@@ -1,6 +1,7 @@
 package com.lambdaschool.sprint2_challenge;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +21,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     private Context context;
 
-    ArrayList<ShoppingItem> items = MainActivity.preferences.
+    ArrayList<ShoppingItem> items;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView txtTitle;
         public ImageView imageView;
         public ConstraintLayout linearLayout;
         public Switch aSwitch;
+
+
 
 
         public MyViewHolder(View view) {
@@ -84,7 +88,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     }
 
     public RecycleAdapter(ArrayList<ShoppingItem> items) {
-        this.items = items;
+
+//        this.items = items;
     }
 
     @Override
