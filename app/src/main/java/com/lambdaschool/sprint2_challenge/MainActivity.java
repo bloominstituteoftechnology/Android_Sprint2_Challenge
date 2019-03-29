@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("Shopping Preferences", Context.MODE_PRIVATE);
 
         recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);

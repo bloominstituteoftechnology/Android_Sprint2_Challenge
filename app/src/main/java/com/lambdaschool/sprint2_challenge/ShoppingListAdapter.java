@@ -37,7 +37,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final int id = shoppingItem.getItemId();
         holder.shoppingItemName.setText(shoppingItem.getItemName());
         holder.shoppingItemImage.setImageResource(shoppingItem.getImageId());
-        holder.itemSwitch.setChecked(ShoppingListRepository.containsItem(id));
+        boolean isChecked = ShoppingListRepository.containsItem(id);
+        holder.itemSwitch.setChecked(isChecked);
 
         holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +46,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 if (ShoppingListRepository.containsItem(id)) {
                     ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
                     holder.itemSwitch.toggle();
-                } else if (!ShoppingListRepository.containsItem(id)) {
+                } else {
                     ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
+                    holder.itemSwitch.toggle();
                 }
             }
         });
