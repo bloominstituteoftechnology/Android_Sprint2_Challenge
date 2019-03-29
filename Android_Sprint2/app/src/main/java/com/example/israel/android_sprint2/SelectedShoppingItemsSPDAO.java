@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -82,5 +83,16 @@ public class SelectedShoppingItemsSPDAO {
         editor.apply();
         editor.putStringSet(KEY_SP_SELECTED_SHOPPING_ITEM_IDS, idSet);
         editor.apply();
+    }
+
+    public static ArrayList<ShoppingItem> getSelectedShoppingItems() {
+        Set<String> selectedIdSet = getSelectedShoppingItemIds();
+        ShoppingItem[] shoppingItems = ShoppingItemRepository.getShoppingItems();
+        ArrayList<ShoppingItem> selectedShoppingItems = new ArrayList<>(selectedIdSet.size());
+        for (String id : selectedIdSet) {
+            selectedShoppingItems.add(shoppingItems[Integer.parseInt(id)]);
+        }
+
+        return selectedShoppingItems;
     }
 }
