@@ -7,6 +7,12 @@ public class Item {
     boolean isSelected;
     int id;
 
+    Item(int id, String name, int iconId){
+        this.id = id;
+        this.name = name;
+        this.imageID = iconId;
+    }
+
     public String getName() {
         return name;
     }
