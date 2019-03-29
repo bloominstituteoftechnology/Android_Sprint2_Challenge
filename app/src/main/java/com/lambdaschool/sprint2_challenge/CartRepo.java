@@ -5,41 +5,38 @@ import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
-public class CartRepo {
+class CartRepo {
     private static final String PREFERENCES = "Preferences";
-
-    private static final String ID_LIST_KEY = "id_list";
     private static final String ENTRY_ITEM_KEY_PREFIX = "entry_";
-    private static final String NEXT_ID_KEY = "next_id";
 
     private SharedPreferences prefs;
 
-    public CartRepo(Context context) {
+    CartRepo(Context context) {
         prefs = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
     }
 
-    public void addItemToCart(ShoppingItem shoppingItem) {//TODO: Add .contains for extra precaution
+    void addItemToCart(ShoppingItem shoppingItem) { //Add item to cart
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index, shoppingItem.toCsvString());
         editor.apply();
     }
 
-    public void removeItemFromCart(ShoppingItem shoppingItem) {//TODO: Add .contains for extra precaution
+    void removeItemFromCart(ShoppingItem shoppingItem) { //Remove item from cart
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index);
         editor.apply();
     }
 
-    public boolean isInCart(ShoppingItem shoppingItem) {
+    boolean isInCart(ShoppingItem shoppingItem) { //Check if an item is in cart
         return prefs.contains(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index);
     }
 
-    public String getCart(ArrayList<ShoppingItem> itemList) {
+    String getCart(ArrayList<ShoppingItem> itemList) { // Builds String to export cart
         StringBuilder builder = new StringBuilder();
         builder.append("My Shopping List: ");
         for (ShoppingItem shoppingItem: itemList) {
             if (prefs.contains(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index)) {
-                builder.append((shoppingItem.name + ", "));
+                builder.append((shoppingItem.name)).append(", ");
             }
         }
         builder.deleteCharAt(builder.length() - 2); //deletes last comma

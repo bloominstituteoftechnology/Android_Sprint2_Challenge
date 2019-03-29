@@ -7,9 +7,9 @@
     tools:context=".MainActivity">
 
     <Button
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="@android:color/holo_blue_bright"
         android:id="@+id/button_export_list"
-        android:text="EXPORT LIST"
+        android:text="@string/export_list"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

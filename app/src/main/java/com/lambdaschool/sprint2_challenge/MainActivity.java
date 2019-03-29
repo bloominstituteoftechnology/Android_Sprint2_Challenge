@@ -22,10 +22,6 @@ import static com.lambdaschool.sprint2_challenge.ShoppingItemConstants.ITEM_NAME
 public class MainActivity extends AppCompatActivity {
     static final String CHANNEL_ID = "15154578";
     ArrayList<ShoppingItem> itemList = new ArrayList<>();
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter listAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     CartRepo cartRepo;
     Context context;
 
@@ -42,21 +38,21 @@ public class MainActivity extends AppCompatActivity {
             itemList.add (new ShoppingItem(ITEM_NAMES_RAW[i],ICON_IDS[i],i));
         }
 
-        recyclerView = findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view); //Create RecyclerView
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        listAdapter = new ListAdapter(itemList);
+        RecyclerView.Adapter listAdapter = new ListAdapter(itemList);
         recyclerView.setAdapter(listAdapter);
 
 
-        exportButton.setOnClickListener(new View.OnClickListener() {
+        exportButton.setOnClickListener(new View.OnClickListener() { //Export Shopping List
             @Override
             public void onClick(View view) {
                 String temp = cartRepo.getCart(itemList);
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Shopping List:");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, temp);;
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, temp);
 
                 //NOTIFICATION START
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -77,17 +73,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+    private void createNotificationChannel() { //Notification Channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notify Channel";
             String description = "Shopping App notify Stream";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

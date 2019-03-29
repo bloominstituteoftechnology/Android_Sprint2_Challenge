@@ -1,10 +1,12 @@
 package com.lambdaschool.sprint2_challenge;
 
+import java.util.Locale;
+
 public class ShoppingItem {
     String name;
     int image, index;
 
-    public ShoppingItem(String name, int image, int index) {
+    ShoppingItem(String name, int image, int index) {
         this.name = name;
         this.image = image;
         this.index = index;
@@ -16,8 +18,8 @@ public class ShoppingItem {
         this.image = Integer.parseInt(temp[2]);
         this.index = Integer.parseInt(temp[3]);
     }
-    public String toCsvString(){
-        return String.format("%s,%d,%d",
+    String toCsvString(){
+        return String.format(Locale.US,"%s,%d,%d",
                 this.name,
                 this.image,
                 this.index);

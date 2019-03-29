@@ -14,9 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
-    ArrayList<ShoppingItem> itemList;
+    private ArrayList<ShoppingItem> itemList;
 
-    public ListAdapter(ArrayList<ShoppingItem> itemList) {
+    ListAdapter(ArrayList<ShoppingItem> itemList) {
         this.itemList = itemList;
     }
 
@@ -25,8 +25,7 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
     public ListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_single_element, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
         vh.aSwitch.setChecked(cartRepo.isInCart(itemList.get(i)));
         vh.imageView.setImageResource(itemList.get(i).image);
         vh.textView.setText(itemList.get(i).name);
-        vh.parent.setOnClickListener(new View.OnClickListener() {
+        vh.parent.setOnClickListener(new View.OnClickListener() { //Toggles switch and add/removes from CartRepo
             @Override
             public void onClick(View view) {
                 if (cartRepo.isInCart(itemList.get(vh.getAdapterPosition()))) {
@@ -54,13 +53,13 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ViewHolder> {
         return itemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
         Switch aSwitch;
         View parent;
         Context context;
-        public ViewHolder(@NonNull View v) {
+        ViewHolder(@NonNull View v) {
             super(v);
             textView = v.findViewById(R.id.element_textview);
             imageView = v.findViewById(R.id.element_image);
