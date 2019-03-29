@@ -22,9 +22,11 @@ class CartRepo {
     }
 
     void removeItemFromCart(ShoppingItem shoppingItem) { //Remove item from cart
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index);
-        editor.apply();
+        if (prefs.contains(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index)) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index);
+            editor.apply();
+        }
     }
 
     boolean isInCart(ShoppingItem shoppingItem) { //Check if an item is in cart
@@ -34,7 +36,7 @@ class CartRepo {
     String getCart(ArrayList<ShoppingItem> itemList) { // Builds String to export cart
         StringBuilder builder = new StringBuilder();
         builder.append("My Shopping List: ");
-        for (ShoppingItem shoppingItem: itemList) {
+        for (ShoppingItem shoppingItem : itemList) {
             if (prefs.contains(ENTRY_ITEM_KEY_PREFIX + shoppingItem.index)) {
                 builder.append((shoppingItem.name)).append(", ");
             }

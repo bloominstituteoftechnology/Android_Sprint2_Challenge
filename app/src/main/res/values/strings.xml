@@ -4,4 +4,5 @@
     <string name="export_list">EXPORT LIST</string>
     <string name="in_cart">In Cart</string>
     <string name="item_thumbnail">Displays thumbnail of shopping item</string>
+    <string name="clear_all_selections">Clear All Selections</string>
 </resources>

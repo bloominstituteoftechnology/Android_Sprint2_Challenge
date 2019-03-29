@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         cartRepo = new CartRepo(this);
         Button exportButton = findViewById(R.id.button_export_list);
+        Button clearButton = findViewById(R.id.button_clear_all);
 
         for (int i = 0; i < ICON_IDS.length; ++i) { // generate itemList, ready to be displayed
             itemList.add (new ShoppingItem(ITEM_NAMES_RAW[i],ICON_IDS[i],i));
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view); //Create RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter listAdapter = new ListAdapter(itemList);
+        final RecyclerView.Adapter listAdapter = new ListAdapter(itemList);
         recyclerView.setAdapter(listAdapter);
 
 
@@ -67,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 //NOTIFICATION END
 
                 startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ShoppingItem shoppingItem: itemList) {
+                    cartRepo.removeItemFromCart(shoppingItem);
+                }
+                listAdapter.notifyDataSetChanged();
             }
         });
 
