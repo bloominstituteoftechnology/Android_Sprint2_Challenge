@@ -47,9 +47,15 @@ public class ShoppingItemListAdapter extends RecyclerView.Adapter<ShoppingItemLi
         shoppingItemViewHolder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.itemsSelected.add(shoppingItemViewHolder.shoppingItemTextView.getText().toString());
-                data.setSelected(true);
-                shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                if(MainActivity.itemsSelected.contains(data.getName())){
+                    shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorBlack));
+                    MainActivity.itemsSelected.remove(data.getName());
+                    data.setSelected(false);
+                }else {
+                    MainActivity.itemsSelected.add(shoppingItemViewHolder.shoppingItemTextView.getText().toString());
+                    data.setSelected(true);
+                    shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                }
                 MainActivity.repo.updateShoppingList(MainActivity.itemsSelected);
             }
         });
