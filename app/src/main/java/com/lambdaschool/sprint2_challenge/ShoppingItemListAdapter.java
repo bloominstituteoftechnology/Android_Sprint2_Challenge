@@ -38,7 +38,7 @@ public class ShoppingItemListAdapter extends RecyclerView.Adapter<ShoppingItemLi
         shoppingItemViewHolder.shoppingItemTextView.setText(data.getName());
         shoppingItemViewHolder.shoppingItemImageView.setImageDrawable(context.getDrawable(data.getImage()));
 
-            if(data.getSelected()){
+            if(MainActivity.itemsSelected.contains(data.getName())){
                 shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorAccent));
             }else{
                 shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorBlack));
@@ -50,6 +50,7 @@ public class ShoppingItemListAdapter extends RecyclerView.Adapter<ShoppingItemLi
                 MainActivity.itemsSelected.add(shoppingItemViewHolder.shoppingItemTextView.getText().toString());
                 data.setSelected(true);
                 shoppingItemViewHolder.shoppingItemTextView.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                MainActivity.repo.updateShoppingList(MainActivity.itemsSelected);
             }
         });
 

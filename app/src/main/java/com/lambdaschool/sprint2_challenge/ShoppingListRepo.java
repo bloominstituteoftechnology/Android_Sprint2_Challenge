@@ -18,7 +18,7 @@ public class ShoppingListRepo {
     public void updateShoppingList(ArrayList<String> list){
         String shoppingListItems = "";
         for(String item: list){
-            shoppingListItems.concat(item + ",");
+            shoppingListItems = shoppingListItems + item + ",";
         }
 
         SharedPreferences.Editor editor = prefs.edit();
@@ -27,12 +27,12 @@ public class ShoppingListRepo {
     }
 
     public ArrayList<String> getShoppingList(){
-        String shoppingList = prefs.getString(SHOPPING_LIST_KEY, "");
-        String[] retrievedList = shoppingList.split(",");
-        ArrayList<String> currentList = new ArrayList<>(retrievedList.length);
-        if(!retrievedList.equals("")){
-            currentList.addAll(Arrays.asList(retrievedList));
+        String            idList  = prefs.getString(SHOPPING_LIST_KEY, "");
+        String[]          oldList = idList.split(",");
+        ArrayList<String> ids     = new ArrayList<>(oldList.length);
+        if (!idList.equals("")) {
+            ids.addAll(Arrays.asList(oldList));
         }
-        return currentList;
-    }
+        return ids;
+}
 }

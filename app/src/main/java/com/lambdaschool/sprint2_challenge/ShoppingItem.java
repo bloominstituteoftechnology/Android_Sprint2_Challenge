@@ -15,6 +15,7 @@ public class ShoppingItem {
         this.image = image;
         this.id = id;
         this.isSelected = false;
+
     }
 
     public String getName() {
