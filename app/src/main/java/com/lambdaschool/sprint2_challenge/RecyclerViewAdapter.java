@@ -56,6 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     items.get(pos).setSelected(true);
                     holder.backgroundImage.setImageResource(R.color.colorPrimary);
                 }
+                ItemDao.saveSelectedItems();
             }
         });
 

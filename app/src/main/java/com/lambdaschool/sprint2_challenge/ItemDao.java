@@ -54,11 +54,17 @@ public class ItemDao {
         return tempItems;
     }
 
+    public static void updateSelected(){
+        for(int i = 0; i < items.size()-1; i++){
+            if(items.get(i).isSelected){
+                selectedItems.add(items.get(i));
+            }
+        }
+    }
+
     public static void saveSelectedItems(){
         MainActivity.editor.putString("selected_items" , ItemToCsvString(selectedItems));
         MainActivity.editor.putInt("selected_items_size", selectedItems.size());
-
-
     }
 
     public static String ItemToCsvString(ArrayList<Item> items){
@@ -75,6 +81,16 @@ public class ItemDao {
             }
         }
         return csvString;
+    }
+
+    public static String getHumanReadableStringFromItemArrList(ArrayList<Item> items){
+        String readableString = "";
+
+        for(int i = 0; i < items.size(); i++){
+            readableString += items.get(i).getName() + ", ";
+        }
+
+        return readableString;
     }
 
 }
