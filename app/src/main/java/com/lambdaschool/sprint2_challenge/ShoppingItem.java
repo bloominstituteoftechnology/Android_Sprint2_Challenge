@@ -7,14 +7,14 @@ public class ShoppingItem {
     int image, index;
 
     ShoppingItem(String name, int image, int index) {
-        this.name = name;
+        this.name = name.replace("_", " ");
         this.image = image;
         this.index = index;
     }
 
     public ShoppingItem(String csvString){
         String[] temp = csvString.split(",");
-        this.name = temp[1];
+        this.name = temp[1].replace("_", " ");
         this.image = Integer.parseInt(temp[2]);
         this.index = Integer.parseInt(temp[3]);
     }
