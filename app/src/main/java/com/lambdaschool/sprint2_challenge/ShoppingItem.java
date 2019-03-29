@@ -17,7 +17,16 @@ public ShoppingItem(String csvString){
     this.id = Integer.parseInt(values[2]);
 }
 
-
-
-
+public String toCsvString(){
+    return this.name + "," + this.image + "," +this.id;
+}
+public String getName(){
+    return name;
+}
+public int getImage(){
+    return image;
+}
+public int getId(){
+    return id;
+}
 }
