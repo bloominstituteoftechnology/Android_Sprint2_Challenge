@@ -34,5 +34,13 @@ public class ShoppingListRepo {
             ids.addAll(Arrays.asList(oldList));
         }
         return ids;
-}
+    }
+
+    public String toCSV(ArrayList<String> list){
+        String csvString = "";
+        for(String string: list){
+            csvString = csvString + String.format("%s,", string);
+        }
+        return csvString;
+    }
 }
