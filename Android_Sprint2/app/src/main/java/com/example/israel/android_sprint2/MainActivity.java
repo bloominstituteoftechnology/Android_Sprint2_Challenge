@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_send_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendNotification();
                 sendMessage();
             }
         });
@@ -83,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         if (selectedShoppingItems.size() == 0) { // do not send message if there is no item selected
             return;
         }
+
+        sendNotification();
 
         StringBuilder message = new StringBuilder();
         message.append("Buy these items: ");
