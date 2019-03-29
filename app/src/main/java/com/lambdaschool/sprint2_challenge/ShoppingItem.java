@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class ShoppingItem {
@@ -8,9 +9,9 @@ public class ShoppingItem {
     private Drawable image;
     private int id;
 
-    public ShoppingItem(String name, Drawable image, int id) {
+    public ShoppingItem(String name, int image, int id) {
         this.name = name;
-        this.image = image;
+        this.image = MainActivity.context.getResources().getDrawable(image);
         this.id = id;
     }
 

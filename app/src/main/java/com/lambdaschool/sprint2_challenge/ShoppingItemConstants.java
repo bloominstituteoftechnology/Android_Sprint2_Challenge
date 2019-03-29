@@ -1,8 +1,22 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.SharedPreferences;
+
+import java.util.ArrayList;
+
 public class ShoppingItemConstants {
 
-    public static ArrayList<>
+    static ArrayList<ShoppingItem> dataList;
+
+    public static ArrayList<ShoppingItem> createItemList (){
+        dataList = new ArrayList<>();
+        for (int i=0; i<ICON_IDS.length; i++){
+            ShoppingItem newItem = new ShoppingItem(ITEM_NAMES_RAW[i], ICON_IDS[i], i);
+            dataList.add(newItem);
+        }
+
+        return dataList;
+    }
 
 
     public static final int[] ICON_IDS = new int[]{
