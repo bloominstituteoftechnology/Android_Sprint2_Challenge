@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ShoppingCart {
     private static StringBuilder shoppingListCsv = new StringBuilder();
     private static SharedPreferences appStoredPrefs;
@@ -47,6 +50,26 @@ public class ShoppingCart {
                 shoppingListCsv.deleteCharAt(shoppingListCsv.length() - 1);
             }
         }
+    }
+
+    public static String getShoppingCart() {
+        String[] shoppingItemIds = shoppingListCsv.toString().split(",");
+        ArrayList<String> convertedStringArray = new ArrayList<>(Arrays.asList(shoppingItemIds));
+        StringBuilder shoppingList = new StringBuilder();
+        for (int i = 0; i < MainActivity.shoppingItemArrayList.size(); i++) {
+            ShoppingItem itemToCheck = MainActivity.shoppingItemArrayList.get(i);
+            if (convertedStringArray.contains(Integer.toString(itemToCheck.getShoppingItemId()))) {
+                shoppingList.append(MainActivity.shoppingItemArrayList.get(i).getShoppingItemName());
+                shoppingList.append(", ");
+            }
+        }
+
+        String stringShoppingCart = shoppingList.toString();
+        if (stringShoppingCart.endsWith(", ")) {
+            stringShoppingCart = stringShoppingCart.substring(0, stringShoppingCart.length() - 2);
+        }
+
+        return stringShoppingCart;
     }
 
     public static String getSharedPreferences() {
