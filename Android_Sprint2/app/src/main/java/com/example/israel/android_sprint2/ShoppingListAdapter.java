@@ -2,6 +2,8 @@ package com.example.israel.android_sprint2;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +21,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         this.context = context;
         this.shoppingItems = shoppingItems;
 
-        // initial sorting
+        // initial sorting of selected and unselected
         resetShoppingItems();
     }
 
-    Context context;
-    ArrayList<ShoppingItem> shoppingItems;
+    private Context context;
+    private ArrayList<ShoppingItem> shoppingItems;
 
     @NonNull
     @Override
@@ -44,13 +46,15 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
         if (SelectedShoppingItemsSPDAO.isShoppingItemSelected(shoppingItem)) { // is it selected
             int selectedColor = context.getResources().getColor(R.color.shopping_item_selected);
-            viewHolder.itemView.setBackgroundColor(selectedColor);
+            viewHolder.cardView.setCardBackgroundColor(selectedColor);
         } else {
             int unselectedColor = context.getResources().getColor(R.color.shopping_item_unselected);
-            viewHolder.itemView.setBackgroundColor(unselectedColor);
+            viewHolder.cardView.setCardBackgroundColor(unselectedColor);
         }
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        // @NOTE: use the constraint layout inside the cardView as the hitbox because
+        // the the card view's collision is much bigger than what's being rendered
+        viewHolder.hitBoxConstrainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // toggle shopping item selection state
@@ -116,10 +120,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             // set the relevant views
             iconImageView = itemView.findViewById(R.id.image_view_icon);
             nameTextView = itemView.findViewById(R.id.text_view_name);
+            cardView = itemView.findViewById(R.id.card_view_shopping_item);
+            hitBoxConstrainLayout = itemView.findViewById(R.id.constraint_layout_hitbox);
         }
 
         ImageView iconImageView;
         TextView nameTextView;
+        CardView cardView;
+        ConstraintLayout hitBoxConstrainLayout;
 
     }
 

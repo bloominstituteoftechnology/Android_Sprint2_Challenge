@@ -5,6 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     
     <color name="shopping_item_unselected">#FFFFFF</color>
-    <color name="shopping_item_selected">#990000</color>
+    <color name="shopping_item_selected">#009900</color>
 
 </resources>

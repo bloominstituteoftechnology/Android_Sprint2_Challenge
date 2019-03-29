@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendMessage() {
         ArrayList<ShoppingItem> selectedShoppingItems = SelectedShoppingItemsSPDAO.getSelectedShoppingItems();
+        if (selectedShoppingItems.size() == 0) { // do not send message if there is no item selected
+            return;
+        }
+
         StringBuilder message = new StringBuilder();
         message.append("Buy these items: ");
         String delimiter = ", ";
