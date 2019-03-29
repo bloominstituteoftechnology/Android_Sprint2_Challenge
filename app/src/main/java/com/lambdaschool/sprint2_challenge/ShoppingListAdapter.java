@@ -37,17 +37,24 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         final int id = shoppingItem.getItemId();
         holder.shoppingItemName.setText(shoppingItem.getItemName());
         holder.shoppingItemImage.setImageResource(shoppingItem.getImageId());
+        holder.itemSwitch.setVisibility(View.INVISIBLE);
         boolean isChecked = ShoppingListRepository.containsItem(id);
         holder.itemSwitch.setChecked(isChecked);
+        if (isChecked)
+            holder.itemParentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        else
+            holder.itemParentLayout.setBackgroundColor(context.getResources().getColor(android.R.color.white));
 
         holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ShoppingListRepository.containsItem(id)) {
                     ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
+                    holder.itemParentLayout.setBackgroundColor(context.getResources().getColor(android.R.color.white));
                     holder.itemSwitch.toggle();
                 } else {
                     ShoppingListRepository.updateItem(id, holder.itemSwitch.isChecked());
+                    holder.itemParentLayout.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
                     holder.itemSwitch.toggle();
                 }
             }
