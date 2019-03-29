@@ -12,7 +12,6 @@ public class ShoppingCart {
 
     public static boolean isItemInTheShoppingCart(String itemInList) {
         String sbToString = shoppingListCsv.toString();
-        shoppingListCsv = new StringBuilder();
         String[] splitCsv = sbToString.split(",");
         for (String item : splitCsv) {
             if (item.equals(itemInList)) {
@@ -25,7 +24,6 @@ public class ShoppingCart {
     public static void addItemToShoppingCart(String itemInList) {
         shoppingListCsv.append(",");
         shoppingListCsv.append(itemInList);
-
         formatShoppingListCsv();
     }
 
@@ -39,7 +37,6 @@ public class ShoppingCart {
                 shoppingListCsv.append(",");
             }
         }
-
         formatShoppingListCsv();
     }
 

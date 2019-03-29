@@ -3,6 +3,7 @@ package com.lambdaschool.sprint2_challenge;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         ViewGroup parentLayout;
         ImageView imageView;
         TextView textView;
+        //Switch switchToggle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -29,6 +32,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             parentLayout = itemView.findViewById(R.id.constraint_layout_parent);
             imageView = itemView.findViewById(R.id.image_view_icon);
             textView = itemView.findViewById(R.id.text_view_name);
+            //switchToggle=itemView.findViewById(R.id.switch_added);
         }
     }
 
@@ -50,18 +54,20 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
-        ShoppingItem item = itemList.get(i);
+        final ShoppingItem item = itemList.get(i);
         viewHolder.imageView.setImageResource(item.getShoppingItemResource());
         viewHolder.textView.setText(item.getShoppingItemName());
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int color;
-                if (ShoppingCart.isItemInTheShoppingCart(Integer.toString(i))) {
-                    ShoppingCart.removeItemFromShoppingCart(Integer.toString(i));
-                    color = R.color.colorPrimary;
+                if (ShoppingCart.isItemInTheShoppingCart(Integer.toString(item.getShoppingItemId()))) {
+                    ShoppingCart.removeItemFromShoppingCart(Integer.toString(item.getShoppingItemId()));
+                    //viewHolder.switchToggle.setChecked(false);
+                    color = R.color.cardview_light_background;
                 } else {
-                    ShoppingCart.addItemToShoppingCart(Integer.toString(i));
+                    ShoppingCart.addItemToShoppingCart(Integer.toString(item.getShoppingItemId()));
+                    //viewHolder.switchToggle.setChecked(true);
                     color = R.color.colorAccent;
                 }
 

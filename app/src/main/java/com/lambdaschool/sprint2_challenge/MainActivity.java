@@ -21,6 +21,5 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shoppingListAdapter);
         recyclerView.setHasFixedSize(true);
-        //shoppingListAdapter.notifyDataSetChanged();
     }
 }
