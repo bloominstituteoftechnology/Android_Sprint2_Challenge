@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
 
@@ -34,7 +36,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         // set the views' data from the item list
         final ShoppingItem shoppingItem = shoppingItems.get(i);
-        viewHolder.iconImageView.setImageDrawable(shoppingItem.getIconDrawable());
+        viewHolder.iconImageView.setImageDrawable(context.getResources().getDrawable(shoppingItem.getIconId()));
         viewHolder.nameTextView.setText(shoppingItem.getName());
 
         if (SelectedShoppingItemsSPDAO.isShoppingItemSelected(shoppingItem)) { // is it selected
@@ -48,6 +50,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // toggle shopping item selection state
                 if (SelectedShoppingItemsSPDAO.isShoppingItemSelected(shoppingItem)) {
                     // remove
                     SelectedShoppingItemsSPDAO.removeSelectedShoppingItem(shoppingItem);
@@ -57,7 +60,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 }
 
                 // TODO update/sort array and notify this
-                notifyDataSetChanged(); // this will also change the color of the selected item
+                resetShoppingItems();
+                notifyDataSetChanged(); // this will also change the color of the se// lected item
             }
 
         });
@@ -67,6 +71,40 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public int getItemCount() {
         return shoppingItems.size();
+    }
+
+    /** Categorize and sort items */
+    private void resetShoppingItems() {
+        // TODO sort here
+        // categorize items to selected and unselected
+        ArrayList<ShoppingItem> selectedItems = new ArrayList<>();
+        Set<String> selectedShoppingIds = SelectedShoppingItemsSPDAO.getSelectedShoppingItemIds();
+        for (String selectedId : selectedShoppingIds) {
+            for (int i = 0; i < shoppingItems.size(); ++i) {
+                ShoppingItem shoppingItem = shoppingItems.get(i);
+                if (shoppingItem.getId().equals(selectedId)) {
+                    selectedItems.add(shoppingItem);
+                    // unselected items will remain in the shoppingItems
+                    shoppingItems.remove(i);
+                    break;
+                }
+            }
+        }
+
+        // sort selected
+        ShoppingItem[] selectedItemArr = selectedItems.toArray(new ShoppingItem[selectedItems.size()]);
+        Arrays.sort(selectedItemArr);
+
+        // sort unselected
+        ShoppingItem[] unselectedItemArr = shoppingItems.toArray(new ShoppingItem[shoppingItems.size()]);
+        Arrays.sort(unselectedItemArr);
+
+        // selected items on top
+        shoppingItems = new ArrayList<>(Arrays.asList(selectedItemArr));
+
+        // unselected items at the bottom
+        shoppingItems.addAll(new ArrayList<>(Arrays.asList(unselectedItemArr)));
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,21 +1,19 @@
 package com.example.israel.android_sprint2;
 
-import android.graphics.drawable.Drawable;
+public class ShoppingItem implements Comparable<ShoppingItem> {
 
-public class ShoppingItem {
-
-    public ShoppingItem(Drawable iconDrawable, String name, String id) {
-        this.iconDrawable = iconDrawable;
+    public ShoppingItem(int iconId, String name, String id) {
+        this.iconId = iconId;
         this.name = name;
         this.id = id;
     }
 
-    private Drawable iconDrawable;
+    private int iconId;
     private String name;
     private String id;
 
-    public Drawable getIconDrawable() {
-        return iconDrawable;
+    public int getIconId() {
+        return iconId;
     }
 
     public String getName() {
@@ -26,4 +24,8 @@ public class ShoppingItem {
         return id;
     }
 
+    @Override
+    public int compareTo(ShoppingItem o) {
+        return this.name.compareTo(o.name);
+    }
 }

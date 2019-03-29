@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
         // initialize shopping items
         shoppingItems = new ArrayList<>(ShoppingItemConstants.ICON_IDS.length);
         for (int i = 0; i < ShoppingItemConstants.ICON_IDS.length; ++i) {
-            Drawable drawable = getResources().getDrawable(ShoppingItemConstants.ICON_IDS[i]);
             String name = ShoppingItemConstants.ITEM_NAMES_RAW[i];
-            ShoppingItem newShoppingItem = new ShoppingItem(drawable, name, Integer.toString(i));
+            ShoppingItem newShoppingItem = new ShoppingItem(ShoppingItemConstants.ICON_IDS[i], name, Integer.toString(i));
             shoppingItems.add(newShoppingItem);
         }
 
