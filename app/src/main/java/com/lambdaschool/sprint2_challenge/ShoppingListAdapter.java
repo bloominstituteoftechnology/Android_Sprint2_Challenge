@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder>{
 
-    ArrayList<ShoppingItem> itemSelected = new ArrayList<>();
-    ArrayList<ShoppingItem> itemList;
+    private ArrayList<ShoppingItem> itemList;
+    private Context context;
 
     public ShoppingListAdapter(ArrayList<ShoppingItem> itemList) {
         this.itemList = itemList;
@@ -22,6 +23,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @NonNull
     @Override
     public ShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.shopping_list_item, parent, false);
 
@@ -30,9 +32,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder shoppingListViewHolder, int i) {
-        ShoppingItem item = itemList.get(i);
+        final ShoppingItem item = itemList.get(i);
 
-        shoppingListViewHolder.itemImage.setImageResource(item.getItemImageId());
+        shoppingListViewHolder.itemImage.setImageDrawable(context.getDrawable(item.getItemImageId()));
         shoppingListViewHolder.itemSwitch.setText(item.getItemName());
 
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -45,10 +47,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public int getItemCount() {
-        return this.itemList.size();
+        return itemList.size();
     }
 
-    static class ShoppingListViewHolder extends RecyclerView.ViewHolder {
+    class ShoppingListViewHolder extends RecyclerView.ViewHolder {
 
         View parentLayout;
         ImageView itemImage;

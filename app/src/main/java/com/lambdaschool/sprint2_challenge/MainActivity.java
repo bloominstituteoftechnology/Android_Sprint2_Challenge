@@ -1,6 +1,12 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +18,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView recyclerView;
     private Button sendListButton;
     private ShoppingListAdapter listAdapter;
     private ArrayList<ShoppingItem> itemList;
+    public static SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        itemList = new ArrayList<>();
+        itemList = ShoppingList.getItemList();
 
         sendListButton = findViewById(R.id.send_list_button);
         sendListButton.setOnClickListener(new View.OnClickListener() {
@@ -35,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         listAdapter = new ShoppingListAdapter(itemList);
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(listAdapter);
 
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(listAdapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
 
     }
 }

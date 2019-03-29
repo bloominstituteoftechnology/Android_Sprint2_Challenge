@@ -6,10 +6,10 @@ public class ShoppingItem {
     private int itemId;
     private int itemImageId;
 
-    public ShoppingItem(String itemName, int itemId, int itemImageId) {
+    public ShoppingItem(String itemName, int itemImageId, int itemId) {
         this.itemName = itemName;
-        this.itemId = itemId;
         this.itemImageId = itemImageId;
+        this.itemId = itemId;
     }
 
     public String getItemName() {
