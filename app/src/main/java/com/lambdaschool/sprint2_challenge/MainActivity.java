@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.text_view_name);
         ShoppingCart.initializeSharedPreferences(this);
         shoppingItemArrayList = ShoppingItemFactory.getShoppingItems();
+        toggleBulkItems(ShoppingCart.getSharedPreferences());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         ShoppingListAdapter shoppingListAdapter = new ShoppingListAdapter(shoppingItemArrayList);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(shoppingListAdapter);
         recyclerView.setHasFixedSize(true);
         //recyclerView.findViewHolderForAdapterPosition(8).itemView.performClick();
-        toggleBulkItems(ShoppingCart.getSharedPreferences());
 
         final NotificationManager notifMgr = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         Button buttonShare = findViewById(R.id.button_share_list);
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public static void toggleBulkItems(String shoppingItemsAddedToCart) {
 
         if (shoppingItemsAddedToCart != null && !shoppingItemsAddedToCart.equals("")) {
@@ -94,22 +93,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-/*    private static void toggleIndividualItems(view) {
-        int color;
-        if (ShoppingCart.isItemInTheShoppingCart(Integer.toString(item.getShoppingItemId()))) {
-            ShoppingCart.removeItemFromShoppingCart(Integer.toString(item.getShoppingItemId()));
-            //viewHolder.switchToggle.setChecked(false);
-            color = R.color.cardview_light_background;
-        } else {
-            ShoppingCart.addItemToShoppingCart(Integer.toString(item.getShoppingItemId()));
-            //viewHolder.switchToggle.setChecked(true);
-            color = R.color.colorAccent;
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            viewHolder.parentLayout.setBackgroundColor(context.getColor(color));
-        else
-            viewHolder.parentLayout.setBackgroundColor(context.getResources().getColor(color));
-    }*/
 }
