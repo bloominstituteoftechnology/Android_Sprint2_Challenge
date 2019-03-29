@@ -9,7 +9,7 @@ import static com.lambdaschool.sprint2_challenge.ShoppingItemConstants.ICON_IDS;
 import static com.lambdaschool.sprint2_challenge.ShoppingItemConstants.ITEM_NAMES_RAW;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<ShoppingItem> itemList;
+    ArrayList<ShoppingItem> itemList = new ArrayList<>();
 
 
     @Override
