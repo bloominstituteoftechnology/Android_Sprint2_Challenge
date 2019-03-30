@@ -25,10 +25,34 @@ public class ShoppingList {
         ArrayList<ShoppingItem> items = getItemList();
         selectedItems = new ArrayList<>();
         for (ShoppingItem item : items) {
-            if (item.isChecked()) {
+            if (getCheckedStatus(item.getItemId())) {
                 selectedItems.add(item);
             }
         }
         return selectedItems;
+    }
+
+    public static void setCheckedStatus(int id, boolean checked) {
+        if (MainActivity.preferences != null) {
+            SharedPreferences.Editor editor = MainActivity.preferences.edit();
+            editor.putBoolean(Constants.KEY_ID + id, checked);
+            editor.apply();
+        }
+    }
+
+    public static boolean getCheckedStatus(int id) {
+        boolean checked = false;
+        if (MainActivity.preferences != null) {
+            checked = MainActivity.preferences.getBoolean(Constants.KEY_ID + id, false);
+        }
+        return checked;
+    }
+
+    public static String selectedItemsToString(ArrayList<ShoppingItem> items) {
+        String names = "Here\'s your order: ";
+        for(ShoppingItem item : items) {
+            names += item.getItemName() + ",";
+        }
+        return names;
     }
 }

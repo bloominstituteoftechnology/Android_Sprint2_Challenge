@@ -43,15 +43,16 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(item.isChecked()) {
+                boolean status = ShoppingList.getCheckedStatus(item.getItemId());
+                if(status) {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.white));
-                    item.setChecked(false);
+                    ShoppingList.setCheckedStatus(item.getItemId(), false);
 
                 }else {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.colorAccent));
-                    item.setChecked(true);
+                    ShoppingList.setCheckedStatus(item.getItemId(), true);
 
                 }
             }

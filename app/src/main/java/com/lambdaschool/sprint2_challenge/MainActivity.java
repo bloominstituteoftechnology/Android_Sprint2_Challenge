@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Button sendListButton;
     private ShoppingListAdapter listAdapter;
-    private ArrayList<ShoppingItem> itemList;
+    public static ArrayList<ShoppingItem> itemList;
+    public static ArrayList<ShoppingItem> itemsSelected;
     public static SharedPreferences preferences;
     private Context context;
 
@@ -36,13 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         itemList = ShoppingList.getItemList();
 
-
         sendListButton = findViewById(R.id.send_list_button);
         sendListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent sendListIntent = new Intent(Intent.ACTION_SEND);
-                sendListIntent.putExtra(Intent.EXTRA_TEXT, selectedItemsToString(ShoppingList.getSelectedItems()));
+                sendListIntent.putExtra(Intent.EXTRA_TEXT, ShoppingList.selectedItemsToString(ShoppingList.getSelectedItems()));
                 sendListIntent.setType("text/plain");
                 startActivity(sendListIntent);
 
@@ -75,13 +75,5 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-    }
-
-    public String selectedItemsToString(ArrayList<ShoppingItem> items) {
-        String itemList = "";
-        for(ShoppingItem item : items) {
-            itemList += item.getItemName() + ", ";
-        }
-        return itemList;
     }
 }
