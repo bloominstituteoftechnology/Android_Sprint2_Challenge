@@ -40,23 +40,41 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         shoppingListViewHolder.itemImage.setImageDrawable(context.getDrawable(item.getItemImageId()));
         shoppingListViewHolder.itemName.setText(item.getItemName());
 
+        shoppingListViewHolder.itemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ShoppingList.setCheckedStatus(item.getItemId(), isChecked);
+            }
+        });
+
+        final boolean status = ShoppingList.getCheckedStatus(item.getItemId());
+
         shoppingListViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean status = ShoppingList.getCheckedStatus(item.getItemId());
                 if(status) {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.white));
+                    shoppingListViewHolder.itemSwitch.setChecked(false);
                     ShoppingList.setCheckedStatus(item.getItemId(), false);
 
                 }else {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
                             context.getResources().getColor(R.color.neonBlue));
+                    shoppingListViewHolder.itemSwitch.setChecked(true);
                     ShoppingList.setCheckedStatus(item.getItemId(), true);
 
                 }
             }
         });
+
+        if(status) {
+            shoppingListViewHolder.parentLayout.setBackgroundColor(
+                    context.getResources().getColor(R.color.neonBlue));
+        } else {
+            shoppingListViewHolder.parentLayout.setBackgroundColor(
+                    context.getResources().getColor(R.color.white));
+        }
 
     }
 
