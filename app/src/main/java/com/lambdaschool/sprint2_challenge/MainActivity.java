@@ -1,5 +1,6 @@
 package com.lambdaschool.sprint2_challenge;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -35,24 +36,20 @@ public class MainActivity extends AppCompatActivity {
         editor = prefs.edit();
         context = this;
 
-       //clearPrefs();
+      //clearPrefs();
 
         ItemDao dao = new ItemDao();
-        ItemDao.setCheckedFlag();
-        ItemDao.updateSelected();
         initRecyclerView();
 
                 sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ItemDao.updateSelected();
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, ItemDao.getHumanReadableStringFromItemArrList(ItemDao.getSelectedItems()));
                 startActivity(Intent.createChooser(intent,"send your list"));
             }
         });
-
     }
 
     private void initRecyclerView(){
@@ -62,15 +59,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        ItemDao.updateSelected();
-        ItemDao.saveSelectedItems();
-    }
 
     public static void clearPrefs(){
-        editor.putString("selected_items",  "");
+        editor.remove("selected_items");
         editor.putInt("selected_items_size", 0);
         editor.apply();
     }

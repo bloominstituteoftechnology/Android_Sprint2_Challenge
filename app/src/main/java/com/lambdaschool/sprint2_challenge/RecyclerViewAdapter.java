@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,13 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<Item> items = new ArrayList<>();
-    private ArrayList<Item> selectedItems = new ArrayList<>();
+    private ArrayList<Item> items;
+   // private ArrayList<Item> selectedItems;
     private Context context;
-    private static boolean needsChecking;
 
     public RecyclerViewAdapter(ArrayList<Item> items, ArrayList<Item> selectedItems, Context context) {
         this.items = items;
-        this.selectedItems = selectedItems;
+        //this.selectedItems = selectedItems;
         this.context = context;
     }
 
@@ -40,23 +40,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.itemIcon.setImageResource(items.get(pos).getImageID());
         holder.itemName.setText(items.get(pos).getName());
 
-/*        if(items.get(pos).isSelected()){
-            holder.backgroundImage.setImageResource(R.color.colorPrimary);
-            items.get(pos).setSelected(true);
-        } else{
-            holder.backgroundImage.setImageResource(R.color.colorAccent);
-        }*/
+        if(items.get(pos).isSelected() == false){
+            holder.parentLayout.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        }else {
+            holder.parentLayout.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        }
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(items.get(pos).isSelected() == true){
                     items.get(pos).setSelected(false);
+                    holder.parentLayout.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                 }else {
                     items.get(pos).setSelected(true);
+                    holder.parentLayout.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent));
                 }
                 ItemDao.updateSelected();
                 ItemDao.saveSelectedItems();
+
             }
         });
 
@@ -71,7 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView itemIcon;
         TextView itemName;
         CardView parentLayout;
-        ImageView backgroundImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
