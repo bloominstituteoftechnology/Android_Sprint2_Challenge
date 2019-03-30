@@ -18,12 +18,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<Item> items;
-   // private ArrayList<Item> selectedItems;
     private Context context;
 
     public RecyclerViewAdapter(ArrayList<Item> items, ArrayList<Item> selectedItems, Context context) {
         this.items = items;
-        //this.selectedItems = selectedItems;
         this.context = context;
     }
 
