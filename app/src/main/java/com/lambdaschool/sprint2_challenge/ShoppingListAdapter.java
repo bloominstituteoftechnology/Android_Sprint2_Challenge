@@ -51,7 +51,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
                 }else {
                     shoppingListViewHolder.parentLayout.setBackgroundColor(
-                            context.getResources().getColor(R.color.colorAccent));
+                            context.getResources().getColor(R.color.neonBlue));
                     ShoppingList.setCheckedStatus(item.getItemId(), true);
 
                 }
