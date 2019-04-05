@@ -57,6 +57,20 @@ public class ItemsList implements Serializable {
     public int size(){
         return alitemList.size();
     }
+    public Item findItemByName(String strName){
+        for(int i=0;i<size();i++){
+            if(alitemList.get( i ).getStrName().equals( strName ))return alitemList.get( i );
+
+        }
+        return null;
+    }
+    public String getListOfItemsToShop(){
+        String strChosen="";
+        for (int i=0;i<size();i++){
+            if(alitemList.get( i ).isbToShop())strChosen+=alitemList.get( i ).getStrName()+",";
+        }
+        return strChosen;
+    }
 
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +20,14 @@ import java.util.ArrayList;
 
 public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.ViewHolder>{
 
-
+    private ViewHolder viewHolder;
 
 
 
     public static final int EDIT_ENTRY_REQUEST_CODE = 2;
 
-    Context context;
+
+    private Context context;
     private ItemsList itemsList;
 
 
@@ -60,7 +62,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
         final Item it = this.itemsList.get(i);
 
-
+        this.viewHolder=viewHolder;
 
         viewHolder.tvName.setText(it.getStrName());
         viewHolder.ivImage.setImageDrawable( context.getResources() .getDrawable( it.getiIcon() ));
@@ -69,7 +71,8 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
             @Override
             public void onClick(View view) {
 
-                changeBackGroundColor(viewHolder,R.color.colorPrimary);
+                changeBackGroundColorAndCheckData( view);
+
 
 
 
@@ -89,9 +92,24 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
     }
 
-    private void changeBackGroundColor(ViewHolder viewHolder,int i){
-        viewHolder.parent.setBackgroundColor(i);
+    private void changeBackGroundColorAndCheckData(View view){
 
+        String str=viewHolder.tvName.getText().toString();
+        Item item=itemsList.findItemByName( str );
+
+
+        if(item!=null){
+            if(item.isbToShop()){
+                view.setBackgroundColor(Color.WHITE);
+                viewHolder.tvName.setTextColor( Color.BLACK );
+                item.setbToShop( false );
+            }else{
+                view.setBackgroundColor(Color.RED);
+                viewHolder.tvName.setTextColor( Color.WHITE );
+                item.setbToShop( true );
+            }
+        }else {
+        }
     }
 
 
