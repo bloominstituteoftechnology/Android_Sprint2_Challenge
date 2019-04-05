@@ -28,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         iv.setImageDrawable( getResources().getDrawable( test.getiIcon() ));
         itemsList=new ItemsList( test );
 
+        ShoppingItemConstants sic=new ShoppingItemConstants();
+        Item newItem;
+        for(int i=0;i<sic.ITEM_NAMES_RAW.length;i++){
+            newItem=new Item( i,sic.ITEM_NAMES_RAW[i],false,sic.ICON_IDS[i] );
+            itemsList.add( newItem );
+        }
+
+
 
         findViewById(R.id.button_recyclerview).setOnClickListener(new View.OnClickListener() {
             @Override

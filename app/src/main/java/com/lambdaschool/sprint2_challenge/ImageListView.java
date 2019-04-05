@@ -35,8 +35,11 @@ public class ImageListView extends AppCompatActivity {
         entryRecyclerView = findViewById(R.id.recycler_view);
         entryRecyclerView.setAdapter( ilaAdapter );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation( LinearLayoutManager.HORIZONTAL );
+        linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
         entryRecyclerView.setLayoutManager(linearLayoutManager);
+
+       /* @Override
+                findViewById( R.id.add_image_button )*/
 
     }
 

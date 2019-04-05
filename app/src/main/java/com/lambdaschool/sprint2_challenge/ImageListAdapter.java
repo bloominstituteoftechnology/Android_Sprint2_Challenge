@@ -65,24 +65,32 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         viewHolder.tvName.setText(it.getStrName());
         viewHolder.ivImage.setImageDrawable( context.getResources() .getDrawable( it.getiIcon() ));
 
-
         viewHolder.parent.setOnClickListener(new View.OnClickListener() {
-
             @Override
+            public void onClick(View view) {
 
-            public void onClick(View v) {
+                changeBackGroundColor(viewHolder,R.color.colorPrimary);
 
-                Intent detailIntent = new Intent(v.getContext(), ImageListView.class);
 
-                detailIntent.putExtra("ItemsList", itemsList);
 
-                ((Activity) v.getContext())
+          //      Intent detailIntent = new Intent(v.getContext(), ImageListView.class);
 
-                        .startActivityForResult(detailIntent, EDIT_ENTRY_REQUEST_CODE);
+            //    detailIntent.putExtra("ItemsList", itemsList);
+
+              //  ((Activity) v.getContext())
+
+                      //  .startActivityForResult(detailIntent, EDIT_ENTRY_REQUEST_CODE);
 
             }
 
         });
+
+
+
+    }
+
+    private void changeBackGroundColor(ViewHolder viewHolder,int i){
+        viewHolder.parent.setBackgroundColor(i);
 
     }
 
@@ -95,6 +103,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         return this.itemsList.size();
 
     }
+
 
 
 
@@ -118,6 +127,10 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
             this.tvName= itemView.findViewById(R.id.text_name_to_choose);
 
 
+        }
+
+        public void changeColor(View itemView){
+            this.parent.setCardBackgroundColor( 3 );
         }
 
     }
