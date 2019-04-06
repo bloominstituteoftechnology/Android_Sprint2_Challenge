@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import  android.support.v7.widget.CardView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,9 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
         this.itemsList=itemsList;
 
+    }
+    public void set(ItemsList itemsList){
+        this.itemsList=itemsList;
     }
 
 
@@ -65,51 +69,45 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         this.viewHolder=viewHolder;
 
         viewHolder.tvName.setText(it.getStrName());
+        if(it.isbToShop()){
+            viewHolder.parent.setBackgroundColor( Color.RED );
+          //  viewHolder.tvName.setTextColor( Color.WHITE );
+        }else{
+            viewHolder.parent.setBackgroundColor( Color.WHITE );
+        }
         viewHolder.ivImage.setImageDrawable( context.getResources() .getDrawable( it.getiIcon() ));
-
-        viewHolder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                changeBackGroundColorAndCheckData( view);
-
-
-
-
-          //      Intent detailIntent = new Intent(v.getContext(), ImageListView.class);
-
-            //    detailIntent.putExtra("ItemsList", itemsList);
-
-              //  ((Activity) v.getContext())
-
-                      //  .startActivityForResult(detailIntent, EDIT_ENTRY_REQUEST_CODE);
-
-            }
-
-        });
-
-
 
     }
 
-    private void changeBackGroundColorAndCheckData(View view){
+    public ItemsList getItemList(){
+        return this.itemsList;
+    }
 
-        String str=viewHolder.tvName.getText().toString();
+    private void changeBackGroundColorAndCheckData(ViewHolder vh){
+
+        String str=vh.tvName.getText().toString();
         Item item=itemsList.findItemByName( str );
 
 
         if(item!=null){
             if(item.isbToShop()){
-                view.setBackgroundColor(Color.WHITE);
-                viewHolder.tvName.setTextColor( Color.BLACK );
+             //   vh.tvName.setBackgroundColor(Color.WHITE);
+                vh.parent.setBackgroundColor(Color.WHITE);
+         //       vh.tvName.setTextColor( Color.BLACK );
+              //  vh.tvName.append( item.getStrName() );//debug
                 item.setbToShop( false );
             }else{
-                view.setBackgroundColor(Color.RED);
-                viewHolder.tvName.setTextColor( Color.WHITE );
+             //   vh.tvName.setBackgroundColor(Color.RED);
+                vh.parent.setBackgroundColor(Color.RED);
+     //           vh.tvName.setTextColor( Color.WHITE );
+           //     vh.tvName.append( item.getStrName() );//debug
+
                 item.setbToShop( true );
             }
         }else {
         }
+
+
     }
 
 
@@ -123,9 +121,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
     }
 
 
-
-
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
         private CardView parent;
 
@@ -143,13 +139,23 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
             this.ivImage = itemView.findViewById(R.id.image_icon_to_choose);
 
             this.tvName= itemView.findViewById(R.id.text_name_to_choose);
-
+            // Attach a click listener to the entire row view
+            itemView.setOnClickListener(this);
 
         }
 
-        public void changeColor(View itemView){
-            this.parent.setCardBackgroundColor( 3 );
+        // Handles the row being being clicked
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+
+             //   Toast.makeText(context, tvName.getText(), Toast.LENGTH_SHORT).show();
+           //     tvName.setText(tvName.getText()+Integer.toString( position ));
+                changeBackGroundColorAndCheckData(this);
+            }
         }
+
 
     }
 

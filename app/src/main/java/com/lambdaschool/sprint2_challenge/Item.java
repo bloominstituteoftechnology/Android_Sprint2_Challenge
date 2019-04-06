@@ -23,7 +23,8 @@ public class Item implements Serializable {
 
         this.iID= Integer.parseInt( strarCSV[0] );
         this.strName=strarCSV[1];
-        this.bToShop=Boolean.getBoolean( strarCSV[2]);
+        this.bToShop=Boolean.parseBoolean(strarCSV[2]);
+    //    strarCSV[3]=strarCSV[3].replace("'" ,""); //to fix a bug no more needed
         this.iIcon=Integer.parseInt( strarCSV[3]);
     }
 
@@ -60,7 +61,7 @@ public class Item implements Serializable {
     }
 
     public String toCSV() {
-        return Integer.toString( iID) +",'" + strName+"," + bToShop + ", '" + Integer.toString(iIcon);
+        return Integer.toString( iID) +"," + strName+"," + bToShop + "," + Integer.toString(iIcon);
     }
 
 

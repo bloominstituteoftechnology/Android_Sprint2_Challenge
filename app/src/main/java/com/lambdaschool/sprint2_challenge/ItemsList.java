@@ -59,7 +59,9 @@ public class ItemsList implements Serializable {
     }
     public Item findItemByName(String strName){
         for(int i=0;i<size();i++){
-            if(alitemList.get( i ).getStrName().equals( strName ))return alitemList.get( i );
+            if(alitemList.get( i ).getStrName().equals( strName )){
+                return alitemList.get( i );
+            }
 
         }
         return null;
@@ -69,8 +71,30 @@ public class ItemsList implements Serializable {
         for (int i=0;i<size();i++){
             if(alitemList.get( i ).isbToShop())strChosen+=alitemList.get( i ).getStrName()+",";
         }
-        return strChosen;
+        return strChosen.substring( 0,strChosen.length()-1 );
+    }
+    public ItemsList reset(){
+        for(int i=0;i<size();i++){
+            alitemList.get( i ).setbToShop( false );
+        }
+        return this;
     }
 
+    public ItemsList getChoosen(){
+
+        ItemsList ilChoosen=null;
+        for(int i=0;i<size();i++){
+            if(alitemList.get(i).isbToShop()){
+                if(ilChoosen==null){
+                    ilChoosen=new ItemsList( alitemList.get(i) );
+
+                }else{
+                    ilChoosen.add( alitemList.get(i) );
+                }
+            }
+
+        }
+        return ilChoosen;
+    }
 
 }
