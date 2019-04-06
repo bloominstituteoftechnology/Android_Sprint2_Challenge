@@ -57,6 +57,7 @@ public class ImageListView extends AppCompatActivity {
                 sendData();
 
                 sendNotifiction();
+                finish();
             }
         } );
 
@@ -159,7 +160,9 @@ public class ImageListView extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        writePreferance();
         sendData();
+        finish();
 
     }
 
