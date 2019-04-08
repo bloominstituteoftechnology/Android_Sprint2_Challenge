@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
             this.preferences = getApplicationContext().getSharedPreferences( "ShoppingListRecord", MODE_PRIVATE );
             String strRetrieved = preferences.getString( "IDS_FOR_SHOPPING", "" );
             SharedPreferences.Editor editor = preferences.edit();
-            //  editor.clear(); //to erase preference
-            //  editor.commit();//to erase preference
+        //   editor.clear(); //to erase preference
+        //     editor.commit();//to erase preference
             if (strRetrieved.equals( "" )) {
 
                 String strIDs = "";
@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
         preferences = getApplicationContext().getSharedPreferences("ShoppingListRecord", MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();
-
+        if (itemsList.size()>263){
+            strIDs=""; //debug
+        }
 
         for(int i=0;i<itemsList.size();i++) {
             if(i==itemsList.size()-1){
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         editor.putString("IDS_FOR_SHOPPING", strIDs);
-        editor.apply();
+        editor.commit();
     }
 
     private void sendData() {

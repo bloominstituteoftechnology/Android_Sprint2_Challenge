@@ -71,7 +71,6 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         viewHolder.tvName.setText(it.getStrName());
         if(it.isbToShop()){
             viewHolder.parent.setBackgroundColor( Color.RED );
-          //  viewHolder.tvName.setTextColor( Color.WHITE );
         }else{
             viewHolder.parent.setBackgroundColor( Color.WHITE );
         }
@@ -93,13 +92,18 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
             if(item.isbToShop()){
              //   vh.tvName.setBackgroundColor(Color.WHITE);
                 vh.parent.setBackgroundColor(Color.WHITE);
-         //       vh.tvName.setTextColor( Color.BLACK );
-              //  vh.tvName.append( item.getStrName() );//debug
+            //    vh.tvName.setBackgroundColor( Color.YELLOW);//debug purpose
+             //   vh.tvName.setTextColor( Color.BLACK ); //it repeats every 14 rows somehow
+
+                //  vh.tvName.append( item.getStrName() );//debug
                 item.setbToShop( false );
             }else{
              //   vh.tvName.setBackgroundColor(Color.RED);
                 vh.parent.setBackgroundColor(Color.RED);
-     //           vh.tvName.setTextColor( Color.WHITE );
+              //  vh.tvName.setTextColor( Color.WHITE );//it repeats every 14 rows somehow
+
+            //    vh.tvName.setBackgroundColor( Color.BLUE); //debug purpose
+
            //     vh.tvName.append( item.getStrName() );//debug
 
                 item.setbToShop( true );
@@ -150,8 +154,6 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
 
-             //   Toast.makeText(context, tvName.getText(), Toast.LENGTH_SHORT).show();
-           //     tvName.setText(tvName.getText()+Integer.toString( position ));
                 changeBackGroundColorAndCheckData(this);
             }
         }

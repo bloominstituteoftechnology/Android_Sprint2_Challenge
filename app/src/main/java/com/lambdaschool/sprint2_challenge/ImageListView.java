@@ -24,11 +24,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ImageListView extends AppCompatActivity {
-    private static ItemsList itemsList;
+    private ItemsList itemsList;
     private RecyclerView entryRecyclerView;
     private ImageListAdapter ilaAdapter;
     private Context context;
-    private static SharedPreferences preferences;
+    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -57,6 +57,7 @@ public class ImageListView extends AppCompatActivity {
                 sendData();
 
                 sendNotifiction();
+                buttonNIghtControl();
                 finish();
             }
         } );
@@ -83,7 +84,9 @@ public class ImageListView extends AppCompatActivity {
 
         SharedPreferences.Editor editor = preferences.edit();
 
-
+        if (itemsList.size()>263){
+            strIDs=""; //debug
+        }
         for(int i=0;i<itemsList.size();i++) {
             if(i==itemsList.size()-1){
                 strIDs+=itemsList.get( i ).getiID();

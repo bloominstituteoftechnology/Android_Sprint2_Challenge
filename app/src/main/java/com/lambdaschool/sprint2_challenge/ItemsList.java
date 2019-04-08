@@ -68,6 +68,7 @@ public class ItemsList implements Serializable {
     }
     public String getListOfItemsToShop(){
         String strChosen="";
+        if(size()==0)return "";
         for (int i=0;i<size();i++){
             if(alitemList.get( i ).isbToShop())strChosen+=alitemList.get( i ).getStrName()+",";
         }
