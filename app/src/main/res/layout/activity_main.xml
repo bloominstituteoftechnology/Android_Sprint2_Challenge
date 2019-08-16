@@ -8,29 +8,28 @@
 
 
     <android.support.v7.widget.RecyclerView
-        tools:listitem="@layout/shopping_list_item"
         android:id="@+id/recycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
 
 
-        tools:layout_editor_absoluteX="4dp" android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_add"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="4dp"
+        tools:listitem="@layout/shopping_list_item">
 
 
     </android.support.v7.widget.RecyclerView>
+
     <Button
         android:id="@+id/button_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recycle" />
 </android.support.constraint.ConstraintLayout>
