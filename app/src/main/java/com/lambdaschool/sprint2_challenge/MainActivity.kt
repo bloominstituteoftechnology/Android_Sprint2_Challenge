@@ -25,12 +25,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         button_add.setOnClickListener {
             //TODO call the notification heer
             BasicNotification.BasicNotification(this)
-            
+
+            var share =  Intent(android.content.Intent.ACTION_SEND)
+            share.setType("text/plain")
+            share.putExtra(Intent.EXTRA_TEXT, "Please make my shopping list ${check_box.isChecked()}")
+            startActivity(Intent.createChooser(share, "Share link"))
 
         }
+
+
 
 
 
