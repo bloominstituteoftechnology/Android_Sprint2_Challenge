@@ -1,6 +1,9 @@
 package com.lambdaschool.sprint2_challenge;
 
 public class ShoppingItemConstants {
+
+    public static final int SIZE = 263; //263 items in the list
+
     public static final int[] ICON_IDS = new int[]{
             R.drawable.almond,
             R.drawable.apple_green,

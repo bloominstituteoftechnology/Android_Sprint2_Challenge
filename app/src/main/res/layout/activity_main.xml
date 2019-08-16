@@ -4,6 +4,14 @@
     android:id="@+id/grocery_list"
     android:layout_height="wrap_content"
     android:layout_width = "match_parent"
+    android:layout_weight="0.95"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/send_list_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="@string/send_list"/>
 </androidx.recyclerview.widget.RecyclerView>
 
