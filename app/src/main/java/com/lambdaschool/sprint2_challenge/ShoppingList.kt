@@ -1,3 +1,8 @@
 package com.lambdaschool.sprint2_challenge
 
-data class ShoppingList(val name: String: "",)
+import android.graphics.drawable.Drawable
+import java.io.Serializable
+
+data class ShoppingList(var name: String = "",
+                        var image: Drawable,
+                        var isClicked: Boolean): Serializable
