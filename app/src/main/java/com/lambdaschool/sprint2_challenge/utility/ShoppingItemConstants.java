@@ -4,7 +4,7 @@ import com.lambdaschool.sprint2_challenge.R;
 
 public class ShoppingItemConstants {
 
-    public static final int SIZE = 263; //263 items in the list
+    public static final int SIZE = 262; //263 items in the list
 
     public static final int[] ICON_IDS = new int[]{
             R.drawable.almond,
