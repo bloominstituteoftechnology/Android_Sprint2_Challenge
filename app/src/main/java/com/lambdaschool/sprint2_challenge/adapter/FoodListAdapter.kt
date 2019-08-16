@@ -20,6 +20,7 @@ class FoodListAdapter(val data: MutableList<FoodData>) : RecyclerView.Adapter<Fo
 
         view.setOnClickListener {
             view.setBackgroundColor(parent.context.resources.getColor(R.color.entryHighlight))
+
         }
 
         return ViewHolder(view)

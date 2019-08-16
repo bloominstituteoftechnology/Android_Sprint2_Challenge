@@ -1,18 +1,23 @@
-package com.lambdaschool.sprint2_challenge
+package com.lambdaschool.sprint2_challenge.activity
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lambdaschool.sprint2_challenge.R
 import com.lambdaschool.sprint2_challenge.adapter.FoodListAdapter
 import com.lambdaschool.sprint2_challenge.model.FoodData
+import com.lambdaschool.sprint2_challenge.utility.ShoppingItemConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val foodList = mutableListOf<FoodData>()
-    val foodListAdapter = FoodListAdapter(foodList)
+    private val foodList = mutableListOf<FoodData>()
+    private val foodListAdapter = FoodListAdapter(foodList)
+
+    public val selectedFoodItems = mutableListOf<View>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
