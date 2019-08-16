@@ -1,3 +1,5 @@
 package com.lambdaschool.sprint2_challenge.Model
 
-class Product (val title:String,val image: String)
+import android.graphics.drawable.Drawable
+
+class Product (val title:String,val image:Drawable)
