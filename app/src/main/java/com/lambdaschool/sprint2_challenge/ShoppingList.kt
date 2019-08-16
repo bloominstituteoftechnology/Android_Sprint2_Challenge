@@ -4,5 +4,4 @@ import android.graphics.drawable.Drawable
 import java.io.Serializable
 
 data class ShoppingList(var name: String = "",
-                        var image: Drawable,
-                        var isClicked: Boolean): Serializable
+                        var image: Drawable): Serializable
