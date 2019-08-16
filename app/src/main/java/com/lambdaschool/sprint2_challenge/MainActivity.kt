@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         button_add.setOnClickListener {
-
-
             //TODO call the notification heer
             BasicNotification.BasicNotification(this)
+            
 
         }
 
