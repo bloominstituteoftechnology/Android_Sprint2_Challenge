@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.lambdaschool.sprint2_challenge.Model.Product
+import com.lambdaschool.sprint2_challenge.R
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class ProductAdapter (val context: Context,val products: List<Product>) :RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
 
@@ -24,9 +27,16 @@ class ProductAdapter (val context: Context,val products: List<Product>) :Recycle
 
     inner class ProductHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val productImage =itemView?.findViewById<ImageView>(R.id)
+        val productImage =itemView.findViewById<ImageView>(R.id.productimage)
+        val productName = itemView.findViewById<TextView>(R.id.productName)
 
+        fun bindProduct(product:Product, context: Context) {
+            val resourceId = context.resources.getIdentifier(product.image, "drawable", context.packageName)
+            productImage?.setImageResource(resourceId)
+            productName?.text=product.title
+            
 
+        }
     }
 
 
