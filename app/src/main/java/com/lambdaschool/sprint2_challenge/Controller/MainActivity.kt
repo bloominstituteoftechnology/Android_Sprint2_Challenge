@@ -33,74 +33,87 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_products)
+        override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                setContentView(R.layout.activity_products)
 
-            GroceryRepo.createGroceryList()
+                GroceryRepo.createGroceryList()
 
-        productListView.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(this@MainActivity)
-                adapter = ProductAdapter(GroceryRepo.GroceryList)
+                productListView.apply {
+                        setHasFixedSize(true)
+                        layoutManager = LinearLayoutManager(this@MainActivity)
+                        adapter = ProductAdapter(GroceryRepo.GroceryList)
+                }
+
+                NOTI_btn.setOnClickListener {
+                        ProductNotification(purchase())
+                        val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Please place this order for me: apples, ect")
+                                type = "text/plain"
+                        }
+                        startActivity(sendIntent)
+
+                }
         }
 
 
 
-                fun purchase():String {
+                fun purchase(): String {
                         var purchaseString = ""
-                        for(Product in GroceryRepo.GroceryList) {
-                                if(Product.purchased) purchaseString += "${Product.title}"
+                        for (Product in GroceryRepo.GroceryList) {
+                                if (Product.purchased) purchaseString += "${Product.title}"
 
                         }
                         return purchaseString
                 }
-            fun ProductNotification(purchases: String) {
 
-                    val channelId = "${this.packageName}.simplenotif"
-                    val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                fun ProductNotification(purchases: String) {
 
-
-            NOTI_btn.setOnClickListener{
-                    ProductNotification(purchase())
-
-            }
+                        val channelId = "${this.packageName}.simplenotif"
+                        val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-            //notification button code below
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 
+                                val name = "productNotification"
+                                val importance = NotificationManager.IMPORTANCE_HIGH
+                                val description = "this is the discription"
+                                val channel = NotificationChannel(channelId, name, importance)
+                                channel.description = description
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                notificationManager.createNotificationChannel(channel)
+                        }
 
+                        val notif_builder = NotificationCompat.Builder(this, channelId)
+                                .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                                .setContentTitle("CONFIRMATION")
+                                .setContentText(purchases)
+                                .setSmallIcon(android.R.drawable.btn_star_big_on)
 
-                            val name = "productNotification"
-                            val importance = NotificationManager.IMPORTANCE_HIGH
-                            val description = "this is the discription"
-                            val channel = NotificationChannel(channelId, name, importance)
-                            channel.description = description
+                                .setDefaults(Activity.DEFAULT_KEYS_DIALER)
+                                .setAutoCancel(true)
 
-                            notificationManager.createNotificationChannel(channel)
-                    }
-
-                            val notif_builder = NotificationCompat.Builder(this, channelId)
-                                    .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                                    .setContentTitle("CONFIRMATION")
-                                    .setContentText(purchases)
-                                    .setSmallIcon(android.R.drawable.btn_star_big_on)
-
-                                    .setDefaults(Activity.DEFAULT_KEYS_DIALER)
-                                    .setAutoCancel(true)
-
-                            notificationManager.notify(NOTIF_KEY, notif_builder.build())
+                        notificationManager.notify(NOTIF_KEY, notif_builder.build())
 
 
 
 
-                    }
+
+                }
+        }
 
 
-            }}
+
+
+
+
+
+
+
+
+
 
 
 
