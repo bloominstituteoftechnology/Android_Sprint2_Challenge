@@ -7,8 +7,8 @@ class GroceryRepo {
         val GroceryList = mutableListOf<Product>()
         fun createGroceryList() {
 
-            for (i in 0 until groceryitems.size ) {
-                GroceryList.add(Product(groceryitems[i],groceryIds[i],purchase false )
+            for (i in 0 until GroceryNames.size ) {
+                GroceryList.add(Product(GroceryNames[i],false, groceryIds[i] ))
             }
         }
     }

@@ -15,40 +15,8 @@ import com.lambdaschool.sprint2_challenge.Model.Product
 import com.lambdaschool.sprint2_challenge.R
 
 import kotlinx.android.synthetic.main.product_item.view.*
-import kotlinx.android.synthetic.main.product_list_item.view.*
-
-/*class ProductsAdapter (val products: MutableList<Product>) :RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.productName
-        val image: ImageView =view.productimage
-
-    }
 
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-       val view = LayoutInflater.from(p0.context).inflate(R.layout.activity_products,p0,false)
-        return ViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-       return products.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = products[position].title
-        holder.image.setImageDrawable(products[position].image)
-    }
-
-
-
-
-
-
-        }
-
-
-*/
 
 class ProductAdapter( val products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductHolder>(){
 
@@ -71,7 +39,7 @@ override fun onBindViewHolder(holder: ProductHolder, position: Int) {
    val grocery = products[position]
     holder.bindModel(grocery)
 
-    holder.productImage.setOnClickListener{
+    holder.listParent.setOnClickListener{
         grocery.purchased = !grocery.purchased
         notifyItemChanged(position)
 
@@ -81,18 +49,18 @@ override fun onBindViewHolder(holder: ProductHolder, position: Int) {
 
     class ProductHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val productImage: ImageView = itemView.productImage
+        val productImage: ImageView = itemView.productimage
         val productName: TextView = itemView.productName
-        val listParent: LinearLayout = itemView.
+        val listParent: LinearLayout = itemView.list_of_items
 
 
         fun bindModel(product: Product) {
             productImage.setImageResource(product.imageId)
             productName.text = product.title
             if (product.purchased)
-                list_of_items.setBackgroundColor(contextCompat.getColor(itemView.context,R.color.colorAccent))
+                listParent.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.colorAccent))
             else
-                list_of_items.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.colorPrimary))
+                listParent.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.colorPrimary))
 
 
         }
