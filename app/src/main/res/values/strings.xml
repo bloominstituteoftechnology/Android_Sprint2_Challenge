@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Sprint2_Challenge</string>
+    <string name="share_using">Select an App to Share your Shopping List</string>
+    <string name="export_list">EXPORT LIST</string>
+    <string name="in_cart">In Cart</string>
+    <string name="item_thumbnail">Displays thumbnail of shopping item</string>
+    <string name="clear_all_selections">Clear All Selections</string>
 </resources>

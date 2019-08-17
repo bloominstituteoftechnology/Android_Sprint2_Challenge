@@ -1,3 +1,5 @@
+Spencer Stock
+
 # Android_Sprint2_Challenge
 
 ## Introduction
