@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val foodList = mutableListOf<FoodData>()
         val foodListAdapter = FoodListAdapter(foodList)
         val selectedFoodItems = mutableListOf<View>()
-        val selectedFoodItemsIndex = mutableListOf<Int>()
+        val selectedFoodItemsId = mutableListOf<Int>()
         const val SHOPPING_CART = 298324
     }
 
@@ -58,10 +58,11 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     message += it.food_name.text.toString() + "."
                 }
-                foodList.removeAt(selectedFoodItemsIndex[index])
+                foodList.removeAt(selectedFoodItemsId[index])
             }
-            
+
             foodListAdapter.notifyDataSetChanged()
+
             val sharingIntent = ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
                 .setText(message)
