@@ -1,4 +1,4 @@
-package com.lambdaschool.sprint2_challenge
+package com.lambdaschool.sprint2_challenge.utils
 
 import android.annotation.TargetApi
 import android.app.NotificationChannel
@@ -8,8 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import com.lambdaschool.sprint2_challenge.MainActivity.Companion.CONSTANT_STRING2
-import com.lambdaschool.sprint2_challenge.MainActivity.Companion.NOTIFICATION_ID
+import com.lambdaschool.sprint2_challenge.R
+import com.lambdaschool.sprint2_challenge.activity.MainActivity
+import com.lambdaschool.sprint2_challenge.activity.MainActivity.Companion.CONSTANT_STRING2
+import com.lambdaschool.sprint2_challenge.activity.MainActivity.Companion.NOTIFICATION_ID
 
 object BasicNotification{
 
@@ -70,7 +72,7 @@ object BasicNotification{
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setSmallIcon(android.R.drawable.ic_menu_today)
                 .setContentTitle("Demo Notification")
-                .setContentText("Here is the content text!!!")
+                .setContentText("Shopping list Successfully Created!!!")
                 .setAutoCancel(true) // removes notification once used
                 //pending intent
                 .setContentIntent(pendingContentIntent)
