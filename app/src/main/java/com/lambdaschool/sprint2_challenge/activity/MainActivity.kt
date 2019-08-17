@@ -1,23 +1,30 @@
 package com.lambdaschool.sprint2_challenge.activity
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.sprint2_challenge.R
 import com.lambdaschool.sprint2_challenge.adapter.FoodListAdapter
 import com.lambdaschool.sprint2_challenge.model.FoodData
+import com.lambdaschool.sprint2_challenge.utility.Notification
 import com.lambdaschool.sprint2_challenge.utility.ShoppingItemConstants
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_display.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val foodList = mutableListOf<FoodData>()
-    private val foodListAdapter = FoodListAdapter(foodList)
 
-    public val selectedFoodItems = mutableListOf<View>()
+    companion object {
+        val foodList = mutableListOf<FoodData>()
+        val foodListAdapter = FoodListAdapter(foodList)
+        val selectedFoodItems = mutableListOf<View>()
+        const val SHOPPING_CART = 298324
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,5 +42,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         foodListAdapter.notifyDataSetChanged()
+
+        send_list_btn.setOnClickListener {
+            val notification = Notification(this, MainActivity::class.java, R.drawable.ic_nofication)
+            notification.notify(SHOPPING_CART, "Confirmation", "Your order has been placed.")
+
+            var message = getString(R.string.notification_start)
+
+            selectedFoodItems.forEachIndexed {
+                index, it ->
+                if(index != selectedFoodItems.size-1){
+                    message += it.food_name.text.toString() + ", "
+                } else {
+                    message += it.food_name.text.toString() + "."
+                }
+            }
+
+            val sharingIntent = ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText(message)
+                .getIntent()
+            if(sharingIntent.resolveActivity(this.packageManager) != null){
+                startActivity(sharingIntent)
+            }
+        }
     }
 }

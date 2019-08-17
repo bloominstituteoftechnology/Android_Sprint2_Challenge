@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.sprint2_challenge.model.FoodData
 import com.lambdaschool.sprint2_challenge.R
+import com.lambdaschool.sprint2_challenge.activity.MainActivity
 import kotlinx.android.synthetic.main.item_display.view.*
 
 class FoodListAdapter(val data: MutableList<FoodData>) : RecyclerView.Adapter<FoodListAdapter.ViewHolder>(){
@@ -20,7 +21,7 @@ class FoodListAdapter(val data: MutableList<FoodData>) : RecyclerView.Adapter<Fo
 
         view.setOnClickListener {
             view.setBackgroundColor(parent.context.resources.getColor(R.color.entryHighlight))
-
+            MainActivity.selectedFoodItems.add(view)
         }
 
         return ViewHolder(view)

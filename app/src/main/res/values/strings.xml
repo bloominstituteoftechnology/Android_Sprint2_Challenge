@@ -3,7 +3,10 @@
 
     <string name ="channel_name">Simple Notification Channel</string>
     <string name ="channel_description">Simple Channel Description</string>
+
     <string name ="notification_title_main">Simple notification message</string>
     <string name ="notification_content_main">Simple notification content</string>
+    <string name ="notification_start">Please place this order for me: </string>
+
     <string name="send_list">Send List</string>
 </resources>
