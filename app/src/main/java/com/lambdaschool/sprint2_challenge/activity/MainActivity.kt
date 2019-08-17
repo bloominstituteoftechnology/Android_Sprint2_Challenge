@@ -23,13 +23,13 @@ class MainActivity : AppCompatActivity() {
         val foodList = mutableListOf<FoodData>()
         val foodListAdapter = FoodListAdapter(foodList)
         val selectedFoodItems = mutableListOf<View>()
+        val selectedFoodItemsIndex = mutableListOf<Int>()
         const val SHOPPING_CART = 298324
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         grocery_list.setHasFixedSize(true)
         val manager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         grocery_list.layoutManager = manager
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
             var message = getString(R.string.notification_start)
             message += " "
+
             selectedFoodItems.forEachIndexed {
                 index, it ->
                 if(index != selectedFoodItems.size-1){
@@ -57,8 +58,10 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     message += it.food_name.text.toString() + "."
                 }
+                foodList.removeAt(selectedFoodItemsIndex[index])
             }
-
+            
+            foodListAdapter.notifyDataSetChanged()
             val sharingIntent = ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
                 .setText(message)
