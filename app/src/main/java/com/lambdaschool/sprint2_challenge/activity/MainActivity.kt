@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity() {
         grocery_list.layoutManager = manager
         grocery_list.adapter = foodListAdapter
 
-        val imageUri = "android.resource://{${this.packageName}/drawable/"
+        val imageUri = "android.resource://${this.packageName}/drawable/"
 
         for(i in 0..ShoppingItemConstants.SIZE){
-            foodList.add(FoodData(ShoppingItemConstants.ITEM_NAMES_RAW[i], Uri.parse(imageUri + getString(ShoppingItemConstants.ICON_IDS[i])) ))
+            print(imageUri + getString(ShoppingItemConstants.ICON_IDS[i]))
+            foodList.add(FoodData(ShoppingItemConstants.ITEM_NAMES_RAW[i], Uri.parse(imageUri + ShoppingItemConstants.ITEM_NAMES_RAW[i]), i))
         }
 
         foodListAdapter.notifyDataSetChanged()
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             notification.notify(SHOPPING_CART, "Confirmation", "Your order has been placed.")
 
             var message = getString(R.string.notification_start)
-
+            message += " "
             selectedFoodItems.forEachIndexed {
                 index, it ->
                 if(index != selectedFoodItems.size-1){

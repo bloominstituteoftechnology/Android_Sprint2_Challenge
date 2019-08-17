@@ -20,8 +20,13 @@ class FoodListAdapter(val data: MutableList<FoodData>) : RecyclerView.Adapter<Fo
         val view  = LayoutInflater.from(parent.context).inflate(R.layout.item_display, parent, false)
 
         view.setOnClickListener {
-            view.setBackgroundColor(parent.context.resources.getColor(R.color.entryHighlight))
-            MainActivity.selectedFoodItems.add(view)
+            if(!MainActivity.selectedFoodItems.contains(view)) {
+                view.setBackgroundColor(parent.context.resources.getColor(R.color.entryHighlight))
+                MainActivity.selectedFoodItems.add(view)
+            } else{
+                view.setBackgroundColor(parent.context.resources.getColor(R.color.white))
+                MainActivity.selectedFoodItems.remove(view)
+            }
         }
 
         return ViewHolder(view)
