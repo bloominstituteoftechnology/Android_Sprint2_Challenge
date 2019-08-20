@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.item_display.view.*
 
 class MainActivity : AppCompatActivity() {
 
-
     companion object {
         val foodList = mutableListOf<FoodData>()
         val foodListAdapter = FoodListAdapter(foodList)
