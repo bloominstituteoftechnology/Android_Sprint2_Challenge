@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sprint2_Challenge</string>
+    <string name="button_send_list">SEND LIST</string>
+    <string name="cardview_tv_grocery_name">TextView</string>
 </resources>
