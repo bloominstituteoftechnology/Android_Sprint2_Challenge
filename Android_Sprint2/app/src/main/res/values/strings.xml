@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android_Sprint2</string>
+
+    <!-- activity_main.xml -->
+    <string name="text_send_list">Send List</string>
+
+</resources>
