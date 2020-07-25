@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Neon" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/neonBlue</item>
+        <item name="colorPrimaryDark">@color/neonPurple</item>
+        <item name="colorAccent">@color/neonYellow</item>
+
+    </style>
+
+
 </resources>
